@@ -20,27 +20,35 @@
 
 document.addEventListener("backbutton",amintest, false);
 function amintest(){
-                        
-    
     
     var loc =   window.location.hash;
     loc = loc.replace("#/", "");
-
+    
+    loc = loc.split('/');
+    loc = loc[0] ;
     if($.fancybox.isOpen)
 	{
 		$.fancybox.close();
 		return false;
 	}
-    if(loc == "home" || loc == "" || loc == "android-up" || loc == "android-down")
+    if(loc == "menu" )
     {
-       navigator.app.exitApp(); 
-       
-    }                         
+       /*navigator.app.exitApp();*/
+        return false;
+    }
+    else if(loc == "map")
+    {
+         window.location.hash = "#/location";
+    }else if(loc == "")
+    {
+        navigator.app.exitApp();
+    }
     else
     {
-	    window.location.hash = "#/";
+	    window.location.hash = "#/menu";
     }
     return false;
+    
 }
  
  //document.addEventListener("deviceready", onDeviceReady, false);

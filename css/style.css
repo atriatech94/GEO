@@ -631,7 +631,50 @@ button {
     text-shadow: 2px 2px 4px #4E4E06;
     
 }
-/*--=============--   --===================--*/
+/*--=============--  help_me_div --===================--*/
+.help_me_div{
+    width:90%;
+    height:85%;
+    position: absolute;
+    overflow-y: auto;
+    box-sizing: border-box;
+    text-align: right;
+    direction: rtl;
+    right: 5%;
+}
+.help_me_div h3{
+    font-size: 20px;
+    font-weight: bold;
+    line-height:35px;
+    font-weight: bold;
+}
+.help_me_div h4{
+    font-size: 17px;
+    line-height:35px;
+    color: #2c2c58;
+}
+.help_me_div p ,.help_me_div li {
+    font-size: 16px;
+    line-height:25px;
+    color: #464444;
+    margin: 0 10px;   
+}
+.help_me_div ul li {
+    line-height:25px;
+    list-style-type: none !important;
+   
+}
+ .help_me_div ol{
+     list-style-type: none !important;
+ }
+.help_me_div img{
+    display: block;
+    max-width: 95% ;
+    width: auto ;
+    margin:  20px auto;
+    border: 1px solid #797979;
+    box-shadow: 0px 10px 10px -4px  #797979;
+}
 /*--=============--   --===================--*/
 /*--=============--   --===================--*/
 /*--=============--   --===================--*/

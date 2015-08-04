@@ -14,18 +14,37 @@ angular.module('geolocation')
                     var form = $(this);
                     form.serialize();
                     $.post("http://www.atriatech.ir/geolocation/api/login",form.serialize(),function(data){
-                        localStorage.setItem('user_data', data);
-                        localStorage.setItem("user_pass",form.serialize());
-                        window.location.hash = "#/menu" ;
+                        use_pp =JSON.parse(data);
+                        
+                        if(use_pp.not == 0 ){
+                            localStorage.setItem('user_data', data);
+                            localStorage.setItem("user_pass",form.serialize());
+                            window.location.hash = "#/menu" ;
+                            return false;
+                        }
+                        else{
+                            alert("نام کاربری یا رمز عبور اشتباه است ");
+                            return false;
+                        }
+                        
+                       
                     })
                     .done(function(){
                         
                     })
                     .fail(function(){
-                        alert("no internet access")
+                        alert("عدم برقراری اطلاعات")
                     })
                     return false;               
                 });
+                if(localStorage.getItem("user_pass")!=null)
+                {
+                    $.post("http://www.atriatech.ir/geolocation/api/login",localStorage.getItem("user_pass"),function(data){
+                        localStorage.setItem('user_data', data);
+                        window.location.hash = "#/menu" ;
+                    })
+                }
+                
                 
             }
 }});

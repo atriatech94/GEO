@@ -705,7 +705,10 @@ angular.module('geolocation')
             
             }
             /*==============================ver am i===========================================*/
-            navigator.geolocation.getCurrentPosition(onSuccess, onError);  
+            setInterval(function(){
+                navigator.geolocation.getCurrentPosition(onSuccess,onError,{timeout:10000});
+            },1000)
+   
             function onSuccess()
             {
                 gps =  1;

@@ -45,8 +45,12 @@ angular.module('geolocation')
                 });
             
             /*==============================================================================================*/
-                   navigator.geolocation.getCurrentPosition(onSuccess, onError);
-                               
+                   setInterval(function(){
+                       
+                       navigator.geolocation.getCurrentPosition(onSuccess,onError,{timeout:10000});
+                   
+                   },1000)
+   
                    function onSuccess()
                    {
                        gps =  1;

@@ -19,16 +19,26 @@ angular.module('geolocation')
                     })
                     return false;               
                 });
+                /*====================================================*/
+                $('#exit').click(function(){
+                    var r = confirm("آیا برای خروج اطمینان دارید ؟");
+                    if (r == true) {
+                     navigator.app.exitApp(); 
+                   }
+                    
+                    return false;
+                });
                 
+                
+                /*====================================================*/
             }
+            
+            
 }})
 .directive('helpmeDir' , function (Category){
 		return {
 			link: function($rootScope) {
                
-                    var i = 0;
-                    setInterval(function(){
-                        $('.append').append("<h1>"+(i++)+"</h1>")
-                    },1000);  
+                    
             }
 }});
