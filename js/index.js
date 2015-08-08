@@ -33,21 +33,25 @@ function amintest(){
 	}
     if(loc == "menu" )
     {
-       /*navigator.app.exitApp();*/
-        return false;
+       
     }
     else if(loc == "map")
     {
          window.location.hash = "#/location";
-    }else if(loc == "")
+    }
+    else if(loc == "product_detail")
     {
-        navigator.app.exitApp();
+         window.location.hash = "#/product";
+    }
+    else if(loc == "")
+    {
+        
     }
     else
     {
 	    window.location.hash = "#/menu";
     }
-    return false;
+  
     
 }
  

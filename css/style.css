@@ -675,8 +675,60 @@ button {
     border: 1px solid #797979;
     box-shadow: 0px 10px 10px -4px  #797979;
 }
-/*--=============--   --===================--*/
-/*--=============--   --===================--*/
+.help_me_div .marker_img{
+    margin: inherit !important;
+    border: none;
+    box-shadow: none;
+}
+/*--=============--  detail_pro --===================--*/
+.detail_pro h2{
+    margin: 0px  auto ;
+    width: 90%;
+    color:#000;
+    font-size: 25px;
+    position: relative;
+    padding: 20px 0 ;
+    
+    
+}
+.detail_pro p{
+    display: block;
+    margin-top: 20px;
+    font-size: 17px;
+    line-height: 26px;
+    margin: 0px  auto ;
+    width: 90%;
+}
+/*--=============-- .map_det   --===================--*/
+.map_det .fa{
+	padding-left:5px;
+}
+.map_det {
+    padding: 4px 5px;
+}
+.map_det .name{
+	font-size:18px;
+	color:#259AC0;
+	font-family: 'yekan';
+	line-height:25px !important;
+	}
+.map_det .ceo{
+	font-size:13px;
+	font-family: 'yekan';
+	line-height:25px !important;
+	}
+.map_det button{
+	font-size:16px;
+	font-family: 'yekan';
+	line-height:20px !important;
+    color:#fff;
+    background-color:#269aa0;
+    width: 100%;
+    display: block;
+    text-align: center;
+    margin: 0 !important;
+    padding: 5px 8px;
+	}
 /*--=============--   --===================--*/
 /*--=============--   --===================--*/
 /*--=============--   --===================--*/

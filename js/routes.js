@@ -11,7 +11,12 @@ angular.module('geolocation')
             templateUrl: 'pages/visit_list/index.html',
         })
         .when('/product', {
-            templateUrl: 'pages/product/index.html',
+            templateUrl: 'pages/product/index.html', 
+            controller: 'productController',
+        })
+        .when('/product_detail/:id', {
+            templateUrl: 'pages/product_detail/index.html', 
+            controller: 'productdetailController',
         })
         .when('/upload', {
             templateUrl: 'pages/upload/index.html',
@@ -19,6 +24,7 @@ angular.module('geolocation')
         })
         .when('/help_me', {
             templateUrl: 'pages/help_me/index.html',
+            controller: 'helpController',
         })
         .when('/menu', {
             templateUrl: 'pages/menu/index.html',

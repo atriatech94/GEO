@@ -23,7 +23,8 @@ angular.module('geolocation')
                 $('#exit').click(function(){
                     var r = confirm("آیا برای خروج اطمینان دارید ؟");
                     if (r == true) {
-                     navigator.app.exitApp(); 
+                        localStorage.removeItem("user_pass");
+                        navigator.app.exitApp();  
                    }
                     
                     return false;
@@ -34,6 +35,13 @@ angular.module('geolocation')
             }
             
             
+}})
+.directive('helpmeDir' , function (Category){
+		return {
+			link: function($rootScope) {
+               
+                    
+            }
 }})
 .directive('helpmeDir' , function (Category){
 		return {

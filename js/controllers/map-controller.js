@@ -53,6 +53,12 @@ angular.module('geolocation')
                 });
                
                 /*==========================================*/
+                var user_product = user_data.product;
+                var select_product;
+                user_product.forEach(function(element,index){
+                    select_product +='<option value="'+element.id+'">'+element.name+'</option>';
+                });
+                /*==========================================*/
                 
                 var n_point = JSON.parse(distance_now[0].distance_markers);
                 var n_shape = distance_now[0].distance_type;
@@ -113,12 +119,18 @@ angular.module('geolocation')
                                 position: latLng ,
                                 icon : icon(markers_vi[i].visited_type),
                                 title : markers_vi[i].visited_id,
+                                customInfo : '<div class="map_det"><h3 class="name">'+markers_vi[i].visited_name+'</h3><p class="ceo">'+markers_vi[i].visited_ceo+'</p><button class="btn_visit_product" target="_blank" visited_id="'+markers_vi[i].visited_id+'" class="link" >ثبت سفارش</a><div>',
                             });
                                                     
                             pointers.push(markere);
                         
                             google.maps.event.addListener(pointers[i], 'click', function() {
-                                visit_click(this.title);
+                                
+                                content_ifo = this.customInfo;
+                                var infowindow = new google.maps.InfoWindow({
+                                    content: content_ifo   ,
+                                });
+                                infowindow.open(map,this);
                                 
                             });
                             
@@ -126,6 +138,10 @@ angular.module('geolocation')
                         
                     }
                     /*================================visit_click function=====================================*/
+                    $('body').delegate('.btn_visit_product','click',function(){
+                        visit_click($(this).attr('visited_id'))
+                        return false;
+                    });
                     function visit_click(id)
                     {
                         var boxes ='<form class="visit_mark" id="re_visit_mark">';
@@ -137,7 +153,7 @@ angular.module('geolocation')
                         boxes +='<label><input type="number" placeholder="نوع پرداخت"></label>';
                         boxes +='<label><input  type="number" placeholder="فیلد 1 "></label>';
                         boxes +='<label><input  type="text" placeholder="فیلد 2"></label>';
-                        boxes +='<label><select ><option selected disable>محصول انتخابی</option><option value="0">بتن 1</option><option value="1">21</option><option value="2">بتن31</option></select></label>';
+                        boxes +='<label><select><option selected disable>محصول انتخاب کنید</option>'+select_product+'</label>';
                         boxes +='<label><button type="submit">ارسال و دخیره ی اطلاعات</button></label>';
                         boxes +='</form>';
                         $.fancybox.open(
