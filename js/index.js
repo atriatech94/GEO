@@ -45,13 +45,12 @@ function amintest(){
     }
     else if(loc == "")
     {
-        
+      
     }
     else
     {
 	    window.location.hash = "#/menu";
     }
-  
     
 }
  
