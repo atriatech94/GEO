@@ -11,6 +11,7 @@ angular.module('geolocation')
 				
 				/*====================================================*/
                 $('#login').on("submit",function(){
+                    document.getElementById("loading").style.display="block";
                     var form = $(this);
                     form.serialize();
                     $.post("http://www.atriatech.ir/geolocation/api/login",form.serialize(),function(data){
@@ -20,9 +21,11 @@ angular.module('geolocation')
                             localStorage.setItem('user_data', data);
                             localStorage.setItem("user_pass",form.serialize());
                             window.location.hash = "#/menu" ;
+                             document.getElementById("loading").style.display="none";
                             return false;
                         }
                         else{
+                            document.getElementById("loading").style.display="none";
                             alert("نام کاربری یا رمز عبور اشتباه است ");
                             return false;
                         }
@@ -30,15 +33,17 @@ angular.module('geolocation')
                        
                     })
                     .done(function(){
-                        
+                        document.getElementById("loading").style.display="none";
                     })
                     .fail(function(){
-                        alert("عدم برقراری اطلاعات")
+                        document.getElementById("loading").style.display="none";
+                        alert("عدم برقراری اطلاعات");
                     })
                     return false;               
                 });
                 if(localStorage.getItem("user_pass")!=null)
                 {
+                    document.getElementById("loading").style.display="block";
                     $.post("http://www.atriatech.ir/geolocation/api/login",localStorage.getItem("user_pass"),function(data){
                         localStorage.setItem('user_data', data);
                         window.location.hash = "#/menu" ;
@@ -46,7 +51,7 @@ angular.module('geolocation')
                 }
                 
                 
-            }
+            }/*end */
 }});
                 
 /*====================================================*/

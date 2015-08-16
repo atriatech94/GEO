@@ -6,7 +6,7 @@ angular.module('geolocation')
 .directive('productDir' , function (Category){
 		return {
 			link: function($rootScope) {
-              
+              document.getElementById("loading").style.display="none";
                 var user_data =  JSON.parse(localStorage.getItem("user_data"));
                 user_data = user_data.product ;
                 

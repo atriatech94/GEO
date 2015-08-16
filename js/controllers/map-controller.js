@@ -24,7 +24,7 @@ angular.module('geolocation')
 }])
 .directive('mapDir' , [ '$routeParams'  , function ($routeParams,$scope){
 		return  function($scope) {
-
+                document.getElementById("loading").style.display="none";
                 area_id = $routeParams.map_id;
                 distance_id = $routeParams.distance_id;
                 var flightPath , flightPathh , area_id , center_mp  , last_points , directionsDisplay;
@@ -48,9 +48,10 @@ angular.module('geolocation')
                 
                 $('.map_header_text').text("منطقه "+ area_now[0].area_des+' ،  محدوده  '+area_now[0].distance_full[0].distance_name);
                 var distance_full = area_now[0].distance_full;
-                var distance_now = $.grep(distance_full, function (element, index) {
+                var distance_now = $.grep(distance_full[0], function (element, index) {
                     return element.distance_id == distance_id;
                 });
+               
                
                 /*==========================================*/
                 var user_product = user_data.product;
@@ -61,6 +62,7 @@ angular.module('geolocation')
                 /*==========================================*/
                 
                 var n_point = JSON.parse(distance_now[0].distance_markers);
+                
                 var n_shape = distance_now[0].distance_type;
                 console.log(n_point);
                 /*==========================================*/
@@ -145,7 +147,7 @@ angular.module('geolocation')
                     function visit_click(id)
                     {
                         var boxes ='<form class="visit_mark" id="re_visit_mark">';
-                        boxes +='<h2>سفارش خرید</h2>';
+                        boxes +='<h2> 1سفارش خرید</h2>';
                         boxes +='<input  value="'+id+'" type="hidden" name="visited_id">';     
                         boxes +='<input type="hidden" name="marketer_id" value="'+localStorage.getItem("marketer_id")+'">';
                         boxes +='<label><input  type="text" placeholder="تناژ"></label>';
@@ -153,7 +155,7 @@ angular.module('geolocation')
                         boxes +='<label><input type="number" placeholder="نوع پرداخت"></label>';
                         boxes +='<label><input  type="number" placeholder="فیلد 1 "></label>';
                         boxes +='<label><input  type="text" placeholder="فیلد 2"></label>';
-                        boxes +='<label><select><option selected disable>محصول انتخاب کنید</option>'+select_product+'</label>';
+                        boxes +='<label><select><option selected disable>محصول انتخاب کنید</option>'+select_product+'<select></label>';
                         boxes +='<label><button type="submit">ارسال و دخیره ی اطلاعات</button></label>';
                         boxes +='</form>';
                         $.fancybox.open(
@@ -199,6 +201,7 @@ angular.module('geolocation')
                     
                     var show_hide_ponits = 1 ;
                     $('.show_hide').on("click",function(){
+                      map_zoom = map.getZoom();
                        if(show_hide_ponits==1)
                         {
                              for(var i = 0; i < pointers.length; i++) {
@@ -220,6 +223,8 @@ angular.module('geolocation')
                             
                             
                         }
+                        //map.setZoom((map_zoom-1));
+                        setTimeout(function(){map.setZoom(map_zoom)},10);
                     });
                     /*===================================Add All visitor icon ======================================*/ 
                     /*================================= click map for add ==========================================*/
@@ -411,6 +416,7 @@ angular.module('geolocation')
                         boxes +='<label ><input  name="visited_address" type="text" placeholder="آدرس دقیق"></label>';
                         boxes +='<label ><select name="visited_type"><option selected disable>نوع مشتری</option><option value="0">بتن آماده</option><option value="1">مشتریان بالقوه</option><option value="2">مشتریان فعلی</option></select></label>';
                         boxes +='<label ><button type="submit">ارسال و دخیره ی اطلاعات</button></label>';
+                        
                         boxes +='</form>';
                         $.fancybox.open(
                             boxes,

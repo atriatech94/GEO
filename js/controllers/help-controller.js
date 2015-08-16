@@ -6,7 +6,7 @@ angular.module('geolocation')
 .directive('helpmeDir' , function (Category){
 		return {
 			link: function($rootScope) {
-               
+                document.getElementById("loading").style.display="none";
                     
             }
 }});

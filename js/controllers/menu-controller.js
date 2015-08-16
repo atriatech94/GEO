@@ -6,15 +6,19 @@ angular.module('geolocation')
 .directive('menuDir' , function (Category){
 		return {
 			link: function($rootScope) {
-				
+				document.getElementById("loading").style.display="none";
 				/*====================================================*/
                 $('.upade_data').on("click",function(){
+                    document.getElementById("loading").style.display="block";
                     var user_pass =  localStorage.getItem("user_pass");
                     $.post("http://www.atriatech.ir/geolocation/api/login",user_pass,function(data){
                         localStorage.setItem('user_data', data);
+                        document.getElementById("loading").style.display="none";
                         alert("بروز رسانی با موفقیت انجام شد");
+                       
                     })
                     .fail(function(){
+                        document.getElementById("loading").style.display="none";
                         alert("خطا در اتصال به سرور ، مجدد تلاش کنید");
                     })
                     return false;               
@@ -32,7 +36,12 @@ angular.module('geolocation')
                 
                 
                 /*====================================================*/
-            }
+                $('body').delegate('.loading_click','click',function(){
+                    document.getElementById("loading").style.display="block";
+                });
+               
+                
+            }/*end*/
             
             
 }})

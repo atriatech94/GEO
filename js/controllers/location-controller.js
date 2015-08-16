@@ -15,17 +15,19 @@ angular.module('geolocation')
                    localStorage.setItem("vers",0);
                /*==============================================================================================*/
                    
+                 document.getElementById("loading").style.display="none";
                    user_data = JSON.parse(localStorage.getItem('user_data'));
                    localStorage.setItem("marketer_id",user_data.user[0].marketer_id);
                    
                    $.each( (user_data.comission) , function( index, value ) {
                        var data = "<p>منطقه "+value.area_des+"</p><ul>";
-                           $.each( (value.distance_full) , function( index, values ) {
-                               data += "<li><a class='map_views' href='#/map/"+value.area_id+"/"+values.distance_id+"'>مسیر "+values.distance_name+"</a></li>"
-                           });
+                       $.each( (value.distance_full) , function(  index , values ) {
+                           data += "<li><a class='map_views' href='#/map/"+value.area_id+"/"+values[0].distance_id+"'>مسیر "+values[0].distance_name+"</a></li>"
+                       });
                        data +="</ul>";
-                        $('.location_area').append(data);
+                       $('.location_area').append(data);
                     });
+                   
                    
               /*==============================================================================================*/
               

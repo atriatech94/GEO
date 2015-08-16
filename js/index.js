@@ -33,7 +33,8 @@ function amintest(){
 	}
     if(loc == "menu" )
     {
-       return true;
+       /*navigator.app.exitApp();*/
+        return false;
     }
     else if(loc == "map")
     {
@@ -45,13 +46,14 @@ function amintest(){
     }
     else if(loc == "")
     {
-      return true;
+        navigator.app.exitApp();
     }
     else
     {
 	    window.location.hash = "#/menu";
     }
-    return true;
+    return false;
+    
 }
  
  //document.addEventListener("deviceready", onDeviceReady, false);

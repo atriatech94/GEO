@@ -7,7 +7,7 @@ angular.module('geolocation')
 .directive('uploadDir' , function (){
 		return {
             link: function($scope) {
-                
+                document.getElementById("loading").style.display="none";
                 if(localStorage.getItem("newvisit_form")!=null)
                 {
                     var new_visit_form =  JSON.parse( localStorage.getItem("newvisit_form") );
@@ -21,6 +21,7 @@ angular.module('geolocation')
                 /*==================================================================*/
                 /*==================================================================*/
                 $("body").delegate(".uplaod_list_btn","click",function(){
+                    document.getElementById("loading").style.display="block";
                     
                     var re_visit_form =  JSON.parse( localStorage.getItem("revisit_form") );
                     var new_visit_form =  JSON.parse( localStorage.getItem("newvisit_form") );
@@ -31,10 +32,14 @@ angular.module('geolocation')
                         $.post("http://www.atriatech.ir/geolocation/api/re_visited_up" , {data_post : localStorage.getItem("revisit_form") } , function(data){
                             $('.re_visit span').text(0);
                             localStorage.removeItem("revisit_form");
+                            document.getElementById("loading").style.display="none";
+                            alert("اطلاعات با موفقیت ذخیره شد");
                         }).
                         fail(function(){
                             alert("عدم برقراری اطلاعات");
+                            document.getElementById("loading").style.display="none";
                         });
+                        
                     }
                     /*========================================================================*/
                    if(localStorage.getItem("newvisit_form")!=null)
@@ -42,13 +47,16 @@ angular.module('geolocation')
                         $.post("http://www.atriatech.ir/geolocation/api/get_visited_up" , {data_post : localStorage.getItem("newvisit_form") } , function(data){
                             //localStorage.removeItem("newvisit_form");
                             $('.new_visit span').text(0);
+                            document.getElementById("loading").style.display="none";
                             alert("اطلاعات با موفقیت ذخیره شد");
                         }).
                         fail(function(){
                             alert("عدم برقراری اطلاعات");
+                            document.getElementById("loading").style.display="none";
                         });
-               
+                    
                    }
+                    document.getElementById("loading").style.display="none";
                     /*========================================================================*/
             });
             /*========================================================================*/
