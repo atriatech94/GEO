@@ -46,13 +46,12 @@ angular.module('geolocation')
                     return element.area_id == area_id;
                 });
                 
-                $('.map_header_text').text("منطقه "+ area_now[0].area_des+' ،  محدوده  '+area_now[0].distance_full[0].distance_name);
+                $('.map_header_text').text("منطقه "+ area_now[0].area_des+' ،  محدوده  '+area_now[0].distance_full[0][0].distance_name);
                 var distance_full = area_now[0].distance_full;
                 var distance_now = $.grep(distance_full[0], function (element, index) {
                     return element.distance_id == distance_id;
                 });
-               
-               
+
                 /*==========================================*/
                 var user_product = user_data.product;
                 var select_product;
@@ -65,6 +64,7 @@ angular.module('geolocation')
                 
                 var n_shape = distance_now[0].distance_type;
                 console.log(n_point);
+                console.log(n_shape);
                 /*==========================================*/
 
 
@@ -168,7 +168,7 @@ angular.module('geolocation')
                         );
                     }
                     /*========================end visit_click function=============================================*/
-                    mcOptions = {ignoreHidden: true , styles: [{
+                    mcOptions = {maxZoom: 16, ignoreHidden: true , styles: [{
                                     height: 53,
                                     url:  "image/m1.png",
                                     width: 53
@@ -223,8 +223,8 @@ angular.module('geolocation')
                             
                             
                         }
-                        //map.setZoom((map_zoom-1));
-                        setTimeout(function(){map.setZoom(map_zoom)},10);
+                        map.setZoom((map_zoom-1));
+                        setTimeout(function(){map.setZoom(map_zoom)},1);
                     });
                     /*===================================Add All visitor icon ======================================*/ 
                     /*================================= click map for add ==========================================*/
@@ -513,7 +513,7 @@ angular.module('geolocation')
                 destance.origin = first_loc ;
                 destance.destination = last_points ;
                 destance.waypoints = other;
-
+                console.log(destance);
                 directionsService.route(request, function(response, status) {
                     if (status == google.maps.DirectionsStatus.OK) {
                         directionsDisplay.setDirections(response);
