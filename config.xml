@@ -1,5 +1,5 @@
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="ir.atriatech.geolocation" version="1.0.0">
-  <name>Geolocation</name>
+  <name>سیمان فارس</name>
   <description></description>
   <author href="http://atriatech.ir" email="info@atriatech.ir">AtriaTech</author>
   <content src="index.html"/>

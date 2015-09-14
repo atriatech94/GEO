@@ -34,6 +34,14 @@ angular.module('geolocation')
             templateUrl: 'pages/location/index.html',
             controller : "locationController",
         })
+        .when('/mydestance', {
+            templateUrl: 'pages/mydestance/index.html',
+            controller : "mydestanceController",
+        })
+        .when('/distance/:id', {
+            templateUrl: 'pages/distance/index.html',
+            controller : "distanceController",
+        })
         .when('/map/:map_id/:distance_id', {
             templateUrl: 'pages/map/index.html',
             controller: 'MapController',

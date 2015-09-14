@@ -14,7 +14,7 @@ angular.module('geolocation')
                     document.getElementById("loading").style.display="block";
                     var form = $(this);
                     form.serialize();
-                    $.post("http://www.atriatech.ir/geolocation/api/login",form.serialize(),function(data){
+                    $.post("http://www.simanfars.ir/marketer/api/login",form.serialize(),function(data){
                         use_pp =JSON.parse(data);
                         
                         if(use_pp.not == 0 ){
@@ -44,7 +44,7 @@ angular.module('geolocation')
                 if(localStorage.getItem("user_pass")!=null)
                 {
                     document.getElementById("loading").style.display="block";
-                    $.post("http://www.atriatech.ir/geolocation/api/login",localStorage.getItem("user_pass"),function(data){
+                    $.post("http://www.simanfars.ir/marketer/api/login",localStorage.getItem("user_pass"),function(data){
                         localStorage.setItem('user_data', data);
                         window.location.hash = "#/menu" ;
                     })

@@ -139,7 +139,7 @@ position: absolute;
     z-index: 2;
 }
 .logo{
-    background-image: url(../image/logo.png);
+    background-image: url(../image/siman-fars.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 80%;
@@ -177,7 +177,7 @@ position: absolute;
     margin: 35% auto;
 }
 #login {
-    margin-top: 150px;
+    margin-top: 80px;
 }
 #login label input{
     display: inline-block;
@@ -253,6 +253,13 @@ position: absolute;
     top:0px;
     right: 0px;
 }
+#map_canvas3{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0px;
+    right: 0px;
+}
 .footer{
     width: 100%;
     height: 13%;
@@ -324,6 +331,27 @@ position: absolute;
     padding: 15px 8px;  
 }
 /*--=============-- location_area  --===================--*/
+.tabs{
+    width: 100%;
+    box-sizing: border-box;   
+    text-align: justify;
+}
+.tabs li{
+    padding: 20px 0;
+    background-color: #9fdaf8;
+    color:#000;
+    width: 50%;
+    text-align: center;
+    display: inline-block;
+    
+}
+.tabs li.active{
+    text-align: center;
+    background-color: #385673;
+    text-shadow: 0 4px 4px #dedede;
+    color:#fff;
+    
+}
 .location_area{
     width: 100%;
     height: 90%;
@@ -746,7 +774,38 @@ button {
     margin: 0 !important;
     padding: 5px 8px;
 	}
-/*--=============--   --===================--*/
+/*--=============-- .mydistance_table  --===================--*/
+.mydistance_table{
+    width: 96%;
+    height: auto;
+    direction: rtl;
+    text-align: right;
+    margin:20px auto;
+    
+}
+.mydistance_table thead tr {
+    text-align: right;
+    background-color: #4a4a4a;
+    color:#fff;
+    font-size: 18px;
+    
+}
+.mydistance_table thead tr td{
+    text-align: right;
+    padding: 10px 0; 
+}
+.mydistance_table tbody tr {
+    border-bottom: 1px solid #b1b1b1;
+}
+.mydistance_table tbody tr td{
+     text-align: right;
+    padding: 10px 0;
+}
+.mydistance_table tbody tr td img{
+    width: 25px;
+    display: block;
+    margin: 0 auto;
+}
 /*--=============--   --===================--*/
 /*--=============--   --===================--*/
 /*--=============--   --===================--*/
