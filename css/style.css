@@ -343,6 +343,7 @@ position: absolute;
     width: 50%;
     text-align: center;
     display: inline-block;
+    font-size: 20px;
     
 }
 .tabs li.active{
@@ -361,7 +362,7 @@ position: absolute;
     margin-bottom: 100px;
 }
 .location_area p{
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     background-color: #132A35;
     color:#fafafa;
@@ -390,6 +391,7 @@ position: absolute;
     padding: 7px 10px 7px 0 ;
     margin-top: 4px;
     border-right: 3px solid rgb(68, 64, 15);
+    font-size: 17px;
 }
 .header_page_location{
     width: 100%;

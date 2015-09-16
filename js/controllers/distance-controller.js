@@ -34,7 +34,7 @@ angular.module('geolocation')
                    var flightPathh;
                    function initialize_des() 
                    {
-
+                        
                        directionsService = new google.maps.DirectionsService();
                        mapProp = {
                            center:new google.maps.LatLng(29.6543875,52.5155067),
@@ -78,7 +78,7 @@ angular.module('geolocation')
                           last_points = n_point.destination;
                           for(s=1;s < other.length-1 ;s++)
                           {
-                              other[s].location = new google.maps.LatLng(  parseFloat( other[s].location.A ) , parseFloat( other[s].location.F ) );	
+                              other[s].location = new google.maps.LatLng(  parseFloat( other[s].location.split(",")[0] ) , parseFloat( other[s].location.split(",")[1] ) );	
                           }
                           other[0].location = new google.maps.LatLng(  parseFloat( other[0].location.split(",")[0] ) , parseFloat( other[0].location.split(",")[1] ) );	
                           other[other.length - 1].location = new google.maps.LatLng(parseFloat( other[other.length - 1].location.split(",")[0] ) ,parseFloat( other[other.length - 1].location.split(",")[1] ) );
@@ -93,19 +93,19 @@ angular.module('geolocation')
                         distance_vals = JSON.parse(distance_f[0].markers);
                         distance_points = new Array();
 
+                       
+                       
                         distance_vals.forEach(function(element,index){
-                            if(index==0)
-                            {
-                                distance_points.push({lat: element.lat,lon:element.lon});
-                            }
-                            else
-                            {
+                                                        
+                                if( (element.length) > 0)
                                 distance_points.push({lat: element[0].lat,lon:element[0].lon});
-                            }
-                            
+                                else
+                                distance_points.push({lat: element.lat,lon:element.lon});
+                       
                         });
-
-                        polyline_s_get(distance_points);
+                       console.log(distance_points);
+                        
+                       polyline_s_get(distance_points);
             /*==============================================================================================*/
                        
                    }
@@ -165,33 +165,36 @@ angular.module('geolocation')
                   
             /*----------=================================================-----------------*/
            /*======================POLYLINE===========================*/
-            function polyline_s(shapes){
+                   function polyline_s(shapes)
+                   {
 
-                    is_click = 0;
+                        is_click = 0;
 
-                    for(l=0;l<shapes.length;l++)
-                    {
-                        shapes[l] = new google.maps.LatLng(shapes[l].A,shapes[l].F);	  
+                        for(l=0;l<shapes.length;l++)
+                        {
+                            shapes[l] = new google.maps.LatLng(parseFloat(shapes[l].A),parseFloat(shapes[l].F));	  
 
-                    }
-                    console.log(shapes);
-                    localStorage.setItem("destance", JSON.stringify(shapes));
-                    localStorage.setItem("shapes", 'polyline');
-                    flightPathh = new google.maps.Polyline({
-                        path: shapes,
-                        geodesic: true,
-                        fillColor:'#648A8E',
-                        fillOpacity : .09 ,
-                        strokeColor: '#D90000',
-                        strokeOpacity: 1,
-                        strokeWeight: 3 ,
-                    });
+                        }
+                       
 
-                    flightPathh.setMap(map);
-                    if(markers.length > 0)
-                    setAllMap(null);
+                        localStorage.setItem("destance", JSON.stringify(shapes));
+                        localStorage.setItem("shapes", 'polyline');
+                        flightPathh = new google.maps.Polyline({
+                            path: shapes,
+                            geodesic: true,
+                            fillColor:'#648A8E',
+                            fillOpacity : .09 ,
+                            strokeColor: '#D90000',
+                            strokeOpacity: 1,
+                            strokeWeight: 3 ,
+                        });
 
-                }/*end poliline*/
+                        flightPathh.setMap(map);
+                        if(markers.length > 0)
+                        setAllMap(null);
+                        
+                       
+                   }/*end poliline*/
                   
             /*=================================================*/
             /*=================================================*/

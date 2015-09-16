@@ -51,10 +51,11 @@ angular.module('geolocation')
                 
                 $('.map_header_text').text("منطقه "+ area_now[0].area_des+' ،  محدوده  '+area_now[0].distance_full[0][0].distance_name);
                 var distance_full = area_now[0].distance_full;
-                var distance_now = $.grep(distance_full[0], function (element, index) {
-                    return element.distance_id == distance_id;
+                var distance_now_1 = $.grep(distance_full, function (element, index) {
+                    return element[0].distance_id == distance_id;
                 });
-
+                var distance_now =  distance_now_1[0];
+                
                 /*====================select_product======================*/
                 var user_product = user_data.product;
                 var select_product;
@@ -192,13 +193,13 @@ angular.module('geolocation')
                         boxes +='<h2>سفارش خرید</h2>';
                         boxes +='<input  value="'+id+'" type="hidden" name="visited_id">';     
                         boxes +='<input type="hidden" name="marketer_id" value="'+localStorage.getItem("marketer_id")+'">';
-                        boxes +='<label><select name="C1"><optionselected disable> نوع وزیت را انتخاب کنید</option>'+visittype_select+'</select></label>';
+                        boxes +='<label><select name="VisitType"><option selected disable> نوع وزیت را انتخاب کنید</option>'+visittype_select+'</select></label>';
                         boxes +='<label><select name="C1"><option selected disable>C1</option>'+siman_enemy_select+'</select></label>';
                         boxes +='<label><select name="C2"><option selected disable>C2</option>'+siman_enemy_select+'</select></label>';
                         boxes +='<label><select name="C3"><option selected disable>C3</option>'+siman_enemy_select+'</select></label>';
                         boxes +='<label><select name="C4"><option selected disable>C4</option>'+siman_enemy_select+'</select></label>';
                         boxes +='<label><input  type="text" name="description" placeholder="توضیخات"></label>';
-                        boxes +='<label><select><option selected disable>محصول انتخاب کنید</option>'+select_product+'<select></label>';
+                        //boxes +='<label><select ><option selected disable>محصول انتخاب کنید</option>'+select_product+'<select></label>';
                         boxes +='<label><button type="submit">ارسال و دخیره ی اطلاعات</button></label>';
                         boxes +='</form>';
                         $.fancybox.open(
@@ -278,11 +279,12 @@ angular.module('geolocation')
                         first_loc = n_point.origin;
                         other = n_point.waypoints ;
                         last_points = n_point.destination;
+                        
+                        other[0].location = new google.maps.LatLng(  parseFloat( other[0].location.split(",")[0] ) , parseFloat( other[0].location.split(",")[1] ) );	
                         for(s=1;s < other.length-1 ;s++)
                         {
-                            other[s].location = new google.maps.LatLng(  parseFloat( other[s].location.A ) , parseFloat( other[s].location.F ) );	
+                            other[s].location = new google.maps.LatLng(  parseFloat( other[s].location.split(",")[0] ) , parseFloat( other[s].location.split(",")[1] ) );	
                         }
-                        other[0].location = new google.maps.LatLng(  parseFloat( other[0].location.split(",")[0] ) , parseFloat( other[0].location.split(",")[1] ) );	
                         other[other.length - 1].location = new google.maps.LatLng(parseFloat( other[other.length - 1].location.split(",")[0] ) ,parseFloat( other[other.length - 1].location.split(",")[1] ) );
 
                         //console.log(other);
