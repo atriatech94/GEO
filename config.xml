@@ -3,6 +3,7 @@
   <description></description>
   <author href="http://atriatech.ir" email="info@atriatech.ir">AtriaTech</author>
   <content src="index.html"/>
+  <preference name="phonegap-version" value="cli-5.2.0" />
   <preference name="permissions" value="none"/>
   <preference name="orientation" value="default"/>
   <preference name="target-device" value="universal"/>
@@ -18,7 +19,7 @@
   <preference name="disable-cursor" value="false"/>
   <preference name="android-minSdkVersion" value="11"/>
   <preference name="android-installLocation" value="auto"/>
-  <gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.6.4" />
+  <gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.6.4" source="npm" />
   <gap:plugin name="org.apache.cordova.console" source="npm"/>
   <gap:plugin name="org.apache.cordova.device" source="npm"/>
   <gap:plugin name="org.apache.cordova.device-motion" source="npm"/>
