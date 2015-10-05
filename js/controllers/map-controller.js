@@ -837,6 +837,7 @@ angular.module('geolocation')
             /*======================================add place===================================*/
             var new_place_visit = [];
             $('body').delegate('#visit_mark','submit',function(){
+				$('*label.empty').removeClass('empty');
                var form = $(this);
                 var count_error = 0;
                 form.children('label').each(function(index,element){
@@ -848,7 +849,7 @@ angular.module('geolocation')
                        
                        if(vals.trim() == ""  || vals.trim() === undefined || vals.trim() == null  )
                        {
-                           element.className += 'empty';
+                           element.className += ' empty';
                            count_error++;
                        }
                    }
@@ -856,7 +857,7 @@ angular.module('geolocation')
                     {
                         if(vals.trim() == 'nulli' || vals.trim() == ""  || vals.trim() === undefined )
                         {
-                            element.className += 'empty';
+                            element.className += ' empty';
                             count_error++;
                         }
                     }
@@ -910,7 +911,7 @@ angular.module('geolocation')
                 var revisit_form = [];
                 
                  $('body').delegate('#re_visit_mark','submit',function(){
-                     
+                     $('*label.empty').removeClass('empty');
                      var form = $(this);
                      var count_error = 0;
                      form.children('label').each(function(index,element){
@@ -922,7 +923,7 @@ angular.module('geolocation')
 
                              if(vals.trim() == ""  || vals.trim() === undefined || vals.trim() == null  )
                              {
-                                 element.className += 'empty';
+                                 element.className += ' empty';
                                  count_error++;
                              }
                          }
@@ -930,7 +931,7 @@ angular.module('geolocation')
                          {
                              if(vals.trim() == 'nulli' || vals.trim() == ""  || vals.trim() === undefined )
                              {
-                                 element.className += 'empty';
+                                 element.className += ' empty';
                                  count_error++;
                              }
                                 }
