@@ -355,7 +355,7 @@ position: absolute;
 }
 .location_area{
     width: 100%;
-    height: 90%;
+    height: 80%;
     position: absolute;
     padding: 0px 0 ;
     overflow: scroll;
@@ -808,7 +808,26 @@ button {
     display: block;
     margin: 0 auto;
 }
-/*--=============--   --===================--*/
+/*--=============-- validation  --===================--*/
+label.empty input ,label.empty select, label.empty textarea{
+    border-bottom-color: #dd2727;
+    color:#dd2727;
+}
+label.empty input::-webkit-input-placeholder {
+   color:#fa7171;  
+}
+
+label.empty input:-moz-placeholder { /* Firefox 18- */
+    color:#fa7171;  
+}
+
+label.empty input::-moz-placeholder {  /* Firefox 19+ */
+    color:#fa7171;     
+}
+
+label.empty input:-ms-input-placeholder {  
+    color:#fa7171; 
+}
 /*--=============--   --===================--*/
 /*--=============--   --===================--*/
 /*--=============--   --===================--*/

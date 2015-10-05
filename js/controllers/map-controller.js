@@ -24,9 +24,7 @@ angular.module('geolocation')
 }])
 .directive('mapDir' , [ '$routeParams'  , function ($routeParams,$scope){
 		return  function($scope) {
-            
-          
-           
+
                 document.getElementById("loading").style.display="none";
                 area_id = $routeParams.map_id;
                 distance_id = $routeParams.distance_id;
@@ -193,11 +191,11 @@ angular.module('geolocation')
                         boxes +='<h2>سفارش خرید</h2>';
                         boxes +='<input  value="'+id+'" type="hidden" name="visited_id">';     
                         boxes +='<input type="hidden" name="marketer_id" value="'+localStorage.getItem("marketer_id")+'">';
-                        boxes +='<label><select name="VisitType"><option selected disable> نوع وزیت را انتخاب کنید</option>'+visittype_select+'</select></label>';
-                        boxes +='<label><select name="C1"><option selected disable>C1</option>'+siman_enemy_select+'</select></label>';
-                        boxes +='<label><select name="C2"><option selected disable>C2</option>'+siman_enemy_select+'</select></label>';
-                        boxes +='<label><select name="C3"><option selected disable>C3</option>'+siman_enemy_select+'</select></label>';
-                        boxes +='<label><select name="C4"><option selected disable>C4</option>'+siman_enemy_select+'</select></label>';
+                        boxes +='<label><select name="VisitType"><option  value="nulli" selected disable> نوع وزیت را انتخاب کنید</option>'+visittype_select+'</select></label>';
+                        boxes +='<label><select name="C1"><option  value="nulli" selected disable>C1</option>'+siman_enemy_select+'</select></label>';
+                        boxes +='<label><select name="C2"><option  value="nulli" selected disable>C2</option>'+siman_enemy_select+'</select></label>';
+                        boxes +='<label><select name="C3"><option  value="nulli" selected disable>C3</option>'+siman_enemy_select+'</select></label>';
+                        boxes +='<label><select name="C4"><option  value="nulli" selected disable>C4</option>'+siman_enemy_select+'</select></label>';
                         boxes +='<label><input  type="text" name="description" placeholder="توضیخات"></label>';
                         //boxes +='<label><select ><option selected disable>محصول انتخاب کنید</option>'+select_product+'<select></label>';
                         boxes +='<label><button type="submit">ارسال و دخیره ی اطلاعات</button></label>';
@@ -455,14 +453,14 @@ angular.module('geolocation')
                         boxes +='<input  value="'+encodeURI(JSON.stringify(save_location))+'" type="hidden" name="visited_latlon">';     
                         boxes +='<input type="hidden" name="marketer_id" value="'+localStorage.getItem("marketer_id")+'"><input type="hidden" name="area_id" value="'+area_id+'"><input type="hidden" name="distance_id" value="'+distance_id+'">';
                         boxes +='<label><input  name="visited_name" type="text" placeholder="نام "></label>';
-                        boxes +='<label><select name="visited_type"><option selected disable>نوع محل را انتخاب کنید</option>'+point_type_select+'</select></label>';
-                        boxes +='<label><select name="visited_city"><option selected disable>شهر را انتخاب کنید</option>'+city_select+'</select></label>';
+                        boxes +='<label><select name="visited_type"><option value="nulli" selected disable>نوع محل را انتخاب کنید</option>'+point_type_select+'</select></label>';
+                        boxes +='<label><select name="visited_city"><option value="nulli" selected disable>شهر را انتخاب کنید</option>'+city_select+'</select></label>';
                         boxes +='<label><input  name="visited_address" type="text" placeholder="آدرس دقیق"></label>';
                         boxes +='<label><input  name="visited_pointzone" type="number" min="0" max="15" placeholder="درجه - 0 تا 15"></label>';
                         boxes +='<label><input  name="visited_mobile" type="number" placeholder="تلفن همرا"></label>';
                         boxes +='<label><input  name="visited_email" type="text" placeholder="پست الکترونیک"></label>';
                         boxes +='<label><input  name="visited_desc" type="text" placeholder="توضیحات"></label>';
-                        boxes +='<label><select name="visited_type_m"><option selected disable>نوع مشتری</option><option value="0">بتن آماده</option><option value="1">مشتریان بالقوه</option><option value="2">مشتریان فعلی</option></select></label>';
+                        boxes +='<label><select name="visited_type_m"><option  value="nulli" selected disable>نوع مشتری</option><option value="0">بتن آماده</option><option value="1">مشتریان بالقوه</option><option value="2">مشتریان فعلی</option></select></label>';
                         boxes +='<label><button type="submit">ارسال و دخیره ی اطلاعات</button></label>';
                         
                         boxes +='</form>';
@@ -833,14 +831,47 @@ angular.module('geolocation')
             });
             
             /*======================================add place===================================*/
+            $("body").delegate('label.empty input , label.empty select ','change',function(){
+                $(this).parent('label').removeClass('empty');
+            });
+            /*======================================add place===================================*/
             var new_place_visit = [];
             $('body').delegate('#visit_mark','submit',function(){
                var form = $(this);
+                var count_error = 0;
+                form.children('label').each(function(index,element){
+                    
+                    vals = element.children[0].value ;
+                    
+                   if(element.children[0].tagName.toLowerCase() == "input" || element.children[0].tagName.toLowerCase() == "textarea" )
+                   {   
+                       
+                       if(vals.trim() == ""  || vals.trim() === undefined || vals.trim() == null  )
+                       {
+                           element.className += 'empty';
+                           count_error++;
+                       }
+                   }
+                    else if(element.children[0].tagName.toLowerCase() == "select")
+                    {
+                        if(vals.trim() == 'nulli' || vals.trim() == ""  || vals.trim() === undefined )
+                        {
+                            element.className += 'empty';
+                            count_error++;
+                        }
+                    }
+                    
+                });
+               if(count_error > 0)
+               {
+                return false;
+               }
+                 
                 form.serialize();
                 $.post("http://www.simanfars.ir/marketer/api/get_visited",form.serialize(),function(data){
                     //clearMarkers();
                     $.fancybox.close();
-                    alert("Sucess insert Visited");
+                    alert("اطلاعات با موفقیت ذخیره شد");
                 })
                 .fail(function(){
                     localStorage.setItem("new_place_visit",form.serialize());
@@ -848,16 +879,14 @@ angular.module('geolocation')
                             boxes +='<button class="send_new_again" >تلاش مجدد</button><button class="save_new_in" >ذخیره در آپلود ها</button>';
                             boxes +='<div>';
                             $.fancybox.open(boxes,
-                                    {
+                                   {
                                         autoSize : false,
                                         width    : "93%" ,
                                         height:"29%;",
                                         modal : true,
-                                    }
+                                   }
                                 );
-                            
                 });
-                
                 return false;
             });
              $('body').delegate('.send_new_again','click',function(){
@@ -882,9 +911,38 @@ angular.module('geolocation')
                 
                  $('body').delegate('#re_visit_mark','submit',function(){
                      
-                       var form = $(this);
-                        form.serialize();
-                        $.post("http://www.simanfars.ir/marketer/api/re_visited",form.serialize(),function(data){
+                     var form = $(this);
+                     var count_error = 0;
+                     form.children('label').each(function(index,element){
+
+                         vals = element.children[0].value ;
+                         
+                         if(element.children[0].tagName.toLowerCase() == "input" || element.children[0].tagName.toLowerCase() == "textarea" )
+                         {   
+
+                             if(vals.trim() == ""  || vals.trim() === undefined || vals.trim() == null  )
+                             {
+                                 element.className += 'empty';
+                                 count_error++;
+                             }
+                         }
+                         else if(element.children[0].tagName.toLowerCase() == "select")
+                         {
+                             if(vals.trim() == 'nulli' || vals.trim() == ""  || vals.trim() === undefined )
+                             {
+                                 element.className += 'empty';
+                                 count_error++;
+                             }
+                                }
+                             
+                     });
+                     if(count_error > 0)
+                     {
+                         return false;
+                     }
+                     
+                     form.serialize();
+                     $.post("http://www.simanfars.ir/marketer/api/re_visited",form.serialize(),function(data){
                             $.fancybox.close();
                             alert("اطلاعات با موفقیت ذخیره شد");
                         })
