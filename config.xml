@@ -3,7 +3,7 @@
   <description></description>
   <author href="http://atriatech.ir" email="info@atriatech.ir">AtriaTech</author>
   <content src="index.html"/>
-  <preference name="phonegap-version" value="cli-5.2.0" />
+  <preference name="phonegap-version" value="3.7.0" />
   <preference name="permissions" value="none"/>
   <preference name="orientation" value="default"/>
   <preference name="target-device" value="universal"/>
@@ -19,17 +19,17 @@
   <preference name="disable-cursor" value="false"/>
   <preference name="android-minSdkVersion" value="11"/>
   <preference name="android-installLocation" value="auto"/>
-  <gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.6.4" source="npm" />
-  <gap:plugin name="org.apache.cordova.console" source="npm"/>
-  <gap:plugin name="org.apache.cordova.device" source="npm"/>
-  <gap:plugin name="org.apache.cordova.device-motion" source="npm"/>
-  <gap:plugin name="org.apache.cordova.device-orientation" source="npm" />
-  <gap:plugin name="org.apache.cordova.dialogs" source="npm"/>
-  <gap:plugin name="org.apache.cordova.geolocation" source="npm"/>
-  <gap:plugin name="org.apache.cordova.globalization" source="npm"/>
-  <gap:plugin name="org.apache.cordova.inappbrowser" source="npm"/>
-  <gap:plugin name="org.apache.cordova.network-information" source="npm"/>
-  <gap:plugin name="org.apache.cordova.splashscreen " source="npm"/> 
+  <gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.6.4" />
+  <gap:plugin name="org.apache.cordova.console"/>
+  <gap:plugin name="org.apache.cordova.device"/>
+  <gap:plugin name="org.apache.cordova.device-motion"/>
+  <gap:plugin name="org.apache.cordova.device-orientation" />
+  <gap:plugin name="org.apache.cordova.dialogs"/>
+  <gap:plugin name="org.apache.cordova.geolocation"/>
+  <gap:plugin name="org.apache.cordova.globalization"/>
+  <gap:plugin name="org.apache.cordova.inappbrowser"/>
+  <gap:plugin name="org.apache.cordova.network-information"/>
+  <gap:plugin name="org.apache.cordova.splashscreen "/> 
  <icon src="icon.png" />
   <icon src="res/icon/android/icon-36-ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
   <icon src="res/icon/android/icon-48-mdpi.png" gap:platform="android" gap:qualifier="mdpi"/>
