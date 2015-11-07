@@ -15,10 +15,11 @@ angular.module('geolocation')
                     var form = $(this);
                     form.serialize();
                     $.post("http://www.simanfars.ir/marketer/api/login",form.serialize(),function(data){
-                        use_pp =JSON.parse(data);
+                        use_pp = JSON.parse(data);
                         
                         if(use_pp.not == 0 ){
                             localStorage.setItem('user_data', data);
+                            localStorage.setItem("user_id",(use_pp.user[0].marketer_id));
                             localStorage.setItem("user_pass",form.serialize());
                             window.location.hash = "#/menu" ;
                              document.getElementById("loading").style.display="none";
@@ -45,6 +46,8 @@ angular.module('geolocation')
                 {
                     document.getElementById("loading").style.display="block";
                     $.post("http://www.simanfars.ir/marketer/api/login",localStorage.getItem("user_pass"),function(data){
+                        use_pp =JSON.parse(data);
+                        localStorage.setItem("user_id", (use_pp.user[0].marketer_id));
                         localStorage.setItem('user_data', data);
                         window.location.hash = "#/menu" ;
                     })
