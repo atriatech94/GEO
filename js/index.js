@@ -74,7 +74,7 @@ function amintest(){
 
     // Called when background mode has been activated
     cordova.plugins.backgroundMode.onactivate = function () {
-        setTimeout(geoFindMe,10000);
+        setTimeout(geoFindMe,50000);
     }
 }, false);
     //
@@ -96,7 +96,7 @@ function amintest(){
                         jnow_node = JSON.stringify(now_node);
                         localStorage.setItem("now_node",jnow_node);
                         bb++;
-                        if(1)
+                        if(bb > 5)
                         {
                            $.post('http://www.simanfars.ir/marketer/api/marketer_now/nima564321/',{ponits : localStorage.getItem("now_node") },function(){
                                localStorage.removeItem("now_node");
@@ -113,7 +113,7 @@ function amintest(){
                     function error() {};
                     navigator.geolocation.getCurrentPosition(success, error);
                 }/*end localstroge*/
-                setTimeout(geoFindMe,10000);
+                setTimeout(geoFindMe,50000);
             }/*end function*/
             
             function js_yyyy_mm_dd_hh_mm_ss () 
