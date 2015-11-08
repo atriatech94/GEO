@@ -66,50 +66,23 @@ function amintest(){
             }
            
     // device APIs are available
-   
-var serviceName = 'com.red_folder.phonegap.plugin.backgroundservice.sample.MyService';
-
-var factory = require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService')
-module.exports = factory.create(serviceName);
-
-var myService;
-
-document.addEventListener('deviceready', function() {
-    alert("myService now running");
-   myService = cordova.plugins.myService;;
-   go();
-}, true);
-
-function go() {
-   myService.getStatus(function(r){startService(r)}, function(e){handleError(e)});
-};
-
-function startService(data) {
-   if (data.ServiceRunning) {
-      enableTimer(data);
-   } else {
-      myService.startService(function(r){enableTimer(r)}, function(e){handleError(e)});
-   }
-}
-
-function enableTimer(data) {
-   if (data.TimerEnabled) {
-      allDone();
-   } else {
-      myService.enableTimer(60000, function(r){allDone(r)}, function(e){handleError(e)});
-         alert("enableTimer now running");
-   }
-}
-
-function allDone() {
-   alert("Service now running");
-}
+      document.addEventListener('deviceready', function () {
+           cordova.plugins.backgroundMode.enable();
+             setTimeout(geoFindMe,10000);
+            }, false);
     //
   
-
-
+        
+          
 
             function geoFindMe() {
+                if(cordova.plugins.backgroundMode.isEnabled())
+                {
+                    alert('123');
+                }
+                else{
+                    alert('233');
+                }
                 if(localStorage.getItem("user_pass")!=null)
                 {
                     var output = document.getElementById("out");
@@ -139,6 +112,7 @@ function allDone() {
                     function error() {};
                     navigator.geolocation.getCurrentPosition(success, error);
                 }/*end localstroge*/
+                setTimeout(geoFindMe,10000);
             }/*end function*/
             
             function js_yyyy_mm_dd_hh_mm_ss () 
