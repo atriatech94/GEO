@@ -43,7 +43,9 @@
   <icon src="res/icon/android/icon-48-mdpi.png" gap:platform="android" gap:qualifier="mdpi"/>
   <icon src="res/icon/android/icon-72-hdpi.png" gap:platform="android" gap:qualifier="hdpi"/>
   <icon src="res/icon/android/icon-96-xhdpi.png" gap:platform="android" gap:qualifier="xhdpi"/>
-
+<feature name="BackgroundServicePlugin">
+   <param name="android-package" value="com.red_folder.phonegap.plugin.backgroundservice.BackgroundServicePlugin" />
+</feature>
 <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
   <access origin="*"/>
 
