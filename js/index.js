@@ -66,14 +66,16 @@ function amintest(){
             }
            
     // device APIs are available
-    var serviceName = 'com.red_folder.phonegap.plugin.backgroundservice.sample.MyService';
+   
+var serviceName = 'com.red_folder.phonegap.plugin.backgroundservice.sample.MyService';
 
-    var factory = require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService')
-    module.exports = factory.create(serviceName);
-    
-    var myService;
+var factory = require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService')
+module.exports = factory.create(serviceName);
+
+var myService;
 
 document.addEventListener('deviceready', function() {
+    alert("myService now running");
    myService = cordova.plugins.myService;;
    go();
 }, true);
@@ -95,13 +97,13 @@ function enableTimer(data) {
       allDone();
    } else {
       myService.enableTimer(60000, function(r){allDone(r)}, function(e){handleError(e)});
+         alert("enableTimer now running");
    }
 }
 
 function allDone() {
    alert("Service now running");
 }
-    
     //
   
 
