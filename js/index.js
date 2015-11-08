@@ -66,23 +66,24 @@ function amintest(){
             }
            
     // device APIs are available
-      document.addEventListener('deviceready', function () {
-           cordova.plugins.backgroundMode.enable();
-             setTimeout(geoFindMe,10000);
-            }, false);
+    document.addEventListener('deviceready', function () {
+    // Android customization
+    cordova.plugins.backgroundMode.setDefaults({ text:'APP IS RUNIING WELL'});
+    // Enable background mode
+    cordova.plugins.backgroundMode.enable();
+
+    // Called when background mode has been activated
+    cordova.plugins.backgroundMode.onactivate = function () {
+        setTimeout(geoFindMe,10000);
+    }
+}, false);
     //
   
         
           
 
             function geoFindMe() {
-                if(cordova.plugins.backgroundMode.isEnabled())
-                {
-                    alert('123');
-                }
-                else{
-                    alert('233');
-                }
+               
                 if(localStorage.getItem("user_pass")!=null)
                 {
                     var output = document.getElementById("out");
@@ -95,7 +96,7 @@ function amintest(){
                         jnow_node = JSON.stringify(now_node);
                         localStorage.setItem("now_node",jnow_node);
                         bb++;
-                        if(bb > 5)
+                        if(1)
                         {
                            $.post('http://www.simanfars.ir/marketer/api/marketer_now/nima564321/',{ponits : localStorage.getItem("now_node") },function(){
                                localStorage.removeItem("now_node");
