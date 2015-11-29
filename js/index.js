@@ -74,7 +74,7 @@ function amintest(){
 
     // Called when background mode has been activated
     cordova.plugins.backgroundMode.onactivate = function () {
-        setInterval(geoFindMe,50000); 
+        setTimeout(geoFindMe,50000); 
     }
 }, false);
 
@@ -121,6 +121,7 @@ function geoFindMe() {
        
                    
     }/*end localstroge*/
+     setTimeout(geoFindMe,50000);
 
 }/*end function*/
 
