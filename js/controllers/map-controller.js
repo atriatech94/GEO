@@ -801,7 +801,7 @@ angular.module('geolocation')
                 gps =  0;
             }
             /*==============================ver am i===========================================*/
-            setInterval(user_location(0),3000)
+            setInterval(function(){user_location(0)},3000)
             $('.imap').click(function(){
                 user_location(1);
                
