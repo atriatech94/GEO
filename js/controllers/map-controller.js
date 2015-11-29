@@ -122,6 +122,7 @@ angular.module('geolocation')
                         center:new google.maps.LatLng(29.6543875,52.5155067),
                         zoom:13,
                         scrollwheel: false,
+                        disableDoubleClickZoom: true,
                         mapTypeId:google.maps.MapTypeId.ROADMAP,
                         styles:[{"featureType":"administrative.neighborhood","elementType":"all","stylers":[{"visibility":"on"}]},
                         {"featureType":"administrative.land_parcel","elementType":"geometry.stroke","stylers":[{"visibility":"on"},
@@ -143,7 +144,7 @@ angular.module('geolocation')
                     map = new google.maps.Map(document.getElementById("map_canvas2"),mapProp);
                    
                     google.maps.event.addListener(map, 'click', function() {
-                        //alert(123);
+                        
                     });
                     area_rr();
                     /*================================= click map for add ============================================*/
@@ -401,7 +402,7 @@ angular.module('geolocation')
 
                         flightPath.setMap(map);
 
-                        google.maps.event.addListener(flightPath, 'click', function(event) {
+                        google.maps.event.addListener(flightPath, 'dblclick', function(event) {
                         
                             addMarker(event.latLng);
                         });
@@ -681,7 +682,7 @@ angular.module('geolocation')
                 {
                     if(markers.length > 0 )
                     {
-                        $.post("http://www.simanfars.ir/marketer/api/get_user_distance",{marketer_id : localStorage.getItem("marketer_id"),area_id: localStorage.getItem("area_id"),distance_id: localStorage.getItem("distance_id"), markers: JSON.stringify(markers) },function(data){
+                        $.post(base_url+"/api/get_user_distance",{marketer_id : localStorage.getItem("marketer_id"),area_id: localStorage.getItem("area_id"),distance_id: localStorage.getItem("distance_id"), markers: JSON.stringify(markers) },function(data){
                             console.log(data);
                             markers = [];
                             localStorage.setItem('record',0) ;
@@ -771,7 +772,7 @@ angular.module('geolocation')
                         if(markers.length > 0 )
                         {
                             console.log(markers.length);
-                            $.post("http://www.simanfars.ir/marketer/api/get_user_distance",{marketer_id : localStorage.getItem("marketer_id"),area_id: localStorage.getItem("area_id"),distance_id: localStorage.getItem("distance_id"), markers: JSON.stringify(markers) },function(data){
+                            $.post(base_url+"/api/get_user_distance",{marketer_id : localStorage.getItem("marketer_id"),area_id: localStorage.getItem("area_id"),distance_id: localStorage.getItem("distance_id"), markers: JSON.stringify(markers) },function(data){
                                 console.log(data);
                                 markers = [];
                                 localStorage.setItem("markers",null)
@@ -800,10 +801,16 @@ angular.module('geolocation')
                 gps =  0;
             }
             /*==============================ver am i===========================================*/
+            setInterval(user_location(0),3000)
             $('.imap').click(function(){
+                user_location(1);
+               
+            });
+            function user_location(pant_too)
+            {
                 if(gps==0)
                 {
-                    alert("gps غیر فعال می باشد . لطفا از اتصال gps خود مطمعا شوید ");
+                   // alert("gps غیر فعال می باشد . لطفا از اتصال gps خود مطمعا شوید ");
                     return false;
                 }
                 navigator.geolocation.getCurrentPosition(GetLocation);
@@ -818,18 +825,19 @@ angular.module('geolocation')
                          mapMarker = new google.maps.Marker({
                              position: imap,
                              title:"You are here.",
-                             icon : "image/mylocation.png",
+                             icon: {
+                                  path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                                  scale: 5,
+                                  color: 'yellow',
+                                },
                          });
                         mapMarker.setMap(map);
                     }
                     
-                    map.panTo(imap);
-                   
+                    if(pant_too == 1){map.panTo(imap);}
                     
                     }
-               
-            });
-            
+            }
             /*======================================add place===================================*/
             $("body").delegate('label.empty input , label.empty select ','change',function(){
                 $(this).parent('label').removeClass('empty');
@@ -869,7 +877,7 @@ angular.module('geolocation')
                }
                  
                 form.serialize();
-                $.post("http://www.simanfars.ir/marketer/api/get_visited",form.serialize(),function(data){
+                $.post(base_url+"/api/get_visited",form.serialize(),function(data){
                     //clearMarkers();
                     $.fancybox.close();
                     alert("اطلاعات با موفقیت ذخیره شد");
@@ -943,7 +951,7 @@ angular.module('geolocation')
                      }
                      
                      form.serialize();
-                     $.post("http://www.simanfars.ir/marketer/api/re_visited",form.serialize(),function(data){
+                     $.post(base_url+"/api/re_visited",form.serialize(),function(data){
                             $.fancybox.close();
                             alert("اطلاعات با موفقیت ذخیره شد");
                         })
