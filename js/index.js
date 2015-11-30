@@ -46,8 +46,9 @@ function amintest(){
     }
     else if(loc == "")
     {
-        navigator.app.exitApp();
+        navigator.app.exitApp(); 
     }
+    
     else
     {
 	    window.location.hash = "#/menu";
