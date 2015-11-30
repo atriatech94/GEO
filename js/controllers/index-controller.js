@@ -14,7 +14,7 @@ angular.module('geolocation')
                     document.getElementById("loading").style.display="block";
                     var form = $(this);
                     form.serialize();
-                    $.post(base_url+"api/login",form.serialize(),function(data){
+                    $.post("http://www.simanfars.ir/marketer/api/login",form.serialize(),function(data){
                         use_pp = JSON.parse(data);
                         
                         if(use_pp.not == 0 ){
@@ -45,14 +45,14 @@ angular.module('geolocation')
                 if(localStorage.getItem("user_pass")!=null)
                 {
                     document.getElementById("loading").style.display="block";
-                    $.post(base_url+"/api/login",localStorage.getItem("user_pass"),function(data){
+                    $.post("http://www.simanfars.ir/marketer/api/login",localStorage.getItem("user_pass"),function(data){
                         use_pp =JSON.parse(data);
                         localStorage.setItem("user_id", (use_pp.user[0].marketer_id));
                         localStorage.setItem('user_data', data);
                         window.location.hash = "#/menu" ;
-                    });
+                    })
+                }
                 
-                 }
                 
             }/*end */
 }});

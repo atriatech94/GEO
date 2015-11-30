@@ -74,68 +74,52 @@ function amintest(){
 
     // Called when background mode has been activated
     cordova.plugins.backgroundMode.onactivate = function () {
-        setInterval(geoFindMe,50000); 
+        setInterval(function(){geoFindMe();},50000);
     }
 }, false);
+    //
+            function geoFindMe() {
+               
+                if(localStorage.getItem("user_pass")!=null)
+                {
+                    var output = document.getElementById("out");
+                    if (!navigator.geolocation){
+                        return;
+                    }
+                    function success(position) {
 
-var gpss = 0;
-setInterval(function(){   navigator.geolocation.getCurrentPosition(onSuccess,onError,{timeout:10000});},1000)
-function onSuccess(){gpss =  1;}
-function onError(){gpss =  0;}
-bb= 0;
-
-function geoFindMe() {
-        
-    if(localStorage.getItem("user_pass")!=null)
-    {
-                   
-        navigator.geolocation.getCurrentPosition(GetLocation);
-                     
-        function GetLocation(location) {
-            
-            if(gpss==0){return false;}
-            
-            lat = location.coords.latitude;
-            lon = location.coords.longitude;
-           
-            now_node.push({'mn_lat':lat ,'mn_lon': lon,'mn_date':  js_yyyy_mm_dd_hh_mm_ss() ,"marketer_id" : localStorage.getItem("user_id") });
-            jnow_node = JSON.stringify(now_node);
-            localStorage.setItem("now_node",jnow_node);
-            bb++;
-            if(bb > 5)
-            {
-                $.post(base_url+'/api/marketer_now/nima564321/',{ponits : localStorage.getItem("now_node") },function(){
-                    localStorage.removeItem("now_node");
-                    localStorage.setItem("now_node",null);
-                    bb = 0;
-                    now_node = [] ;
-                     console.log("send");
-                    alert("send");
-
-                }).fail(function(){
-                    console.log("Fail");            
-                });
-            }
+                        now_node.push({'mn_lat':position.coords.latitude ,'mn_lon':position.coords.longitude,'mn_date':  js_yyyy_mm_dd_hh_mm_ss() ,"marketer_id" : localStorage.getItem("user_id") });
+                        jnow_node = JSON.stringify(now_node);
+                        localStorage.setItem("now_node",jnow_node);
+                        bb++;
+                        if(bb > 5)
+                        {
+                           $.post('http://www.simanfars.ir/marketer/api/marketer_now/nima564321/',{ponits : localStorage.getItem("now_node") },function(){
+                               localStorage.removeItem("now_node");
+                               bb = 0;
+                               now_node = [] ;
+                               
+                           }).fail(function(){
+                               console.log("Fail");            
+                           });
+                        }
+                       
                         
-        }/*GetLocation*/
-       
-                   
-    }/*end localstroge*/
-
-}/*end function*/
-
-/*==================================================================================*/
-/*==================================================================================*/
-/*==================================================================================*/
-function js_yyyy_mm_dd_hh_mm_ss () 
-{
-    now = new Date();
-    year = "" + now.getFullYear();
-    month = "" + (now.getMonth() + 1); if (month.length == 1) { month = "0" + month; }
-    day = "" + now.getDate(); if (day.length == 1) { day = "0" + day; }
-    hour = "" + now.getHours(); if (hour.length == 1) { hour = "0" + hour; }
-    minute = "" + now.getMinutes(); if (minute.length == 1) { minute = "0" + minute; }
-    second = "" + now.getSeconds(); if (second.length == 1) { second = "0" + second; }
-    return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
-}
-    
+                    };
+                    function error() {};
+                    navigator.geolocation.getCurrentPosition(success, error);
+                }/*end localstroge*/
+                
+            }/*end function*/
+            
+            function js_yyyy_mm_dd_hh_mm_ss () 
+            {
+              now = new Date();
+              year = "" + now.getFullYear();
+              month = "" + (now.getMonth() + 1); if (month.length == 1) { month = "0" + month; }
+              day = "" + now.getDate(); if (day.length == 1) { day = "0" + day; }
+              hour = "" + now.getHours(); if (hour.length == 1) { hour = "0" + hour; }
+              minute = "" + now.getMinutes(); if (minute.length == 1) { minute = "0" + minute; }
+              second = "" + now.getSeconds(); if (second.length == 1) { second = "0" + second; }
+              return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+            }

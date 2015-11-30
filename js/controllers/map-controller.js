@@ -801,13 +801,14 @@ angular.module('geolocation')
                 gps =  0;
             }
             /*==============================ver am i===========================================*/
-            setInterval(user_location(0),3000)
+            setInterval(function(){user_location(0)},3000)
             $('.imap').click(function(){
                 user_location(1);
                
             });
             function user_location(pant_too)
             {
+                console.log("Change work");
                 if(gps==0)
                 {
                    // alert("gps غیر فعال می باشد . لطفا از اتصال gps خود مطمعا شوید ");
@@ -834,7 +835,7 @@ angular.module('geolocation')
                         mapMarker.setMap(map);
                     }
                     
-                    if(pant_too == 1){map.panTo(imap);}
+                   if(pant_too == 1){map.panTo(imap);}
                     
                     }
             }
