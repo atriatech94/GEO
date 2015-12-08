@@ -12,7 +12,7 @@ angular.module('geolocation')
                 $('.upade_data').on("click",function(){
                     document.getElementById("loading").style.display="block";
                     var user_pass =  localStorage.getItem("user_pass");
-                    $.post("http://www.simanfars.ir/marketer/api/login",user_pass,function(data){
+                    $.post(base_url+"/api/login",user_pass,function(data){
                         localStorage.setItem('user_data', data);
                         document.getElementById("loading").style.display="none";
                         alert("بروز رسانی با موفقیت انجام شد");
@@ -28,7 +28,7 @@ angular.module('geolocation')
                 $('#exit').click(function(){
                     var r = confirm("آیا برای خروج اطمینان دارید ؟");
                     if (r == true) {
-                        localStorage.removeItem("user_pass");
+                        localStorage.clear();
                         navigator.app.exitApp();  
                    }
                     

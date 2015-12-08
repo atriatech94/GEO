@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 /*
-	Theme Name: Shoooma-mobile
+	Theme Name: geolocation-mobile
 	Version: 1.0
 	Author: Atria-tech
 	Author URI: http://Atriatech.ir/
@@ -39,6 +39,13 @@ body {
 	color: black;
 	background: white;
 
+}
+input:focus,textarea:focus{
+    -webkit-tap-highlight-color: transparent; 
+}
+textarea:focus, input:focus{
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);    
+    -webkit-user-modify: read-write-plaintext-only;
 }
 :focus {
 	outline: 0;

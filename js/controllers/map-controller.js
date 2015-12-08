@@ -457,10 +457,10 @@ angular.module('geolocation')
                         boxes +='<label><select name="visited_type"><option value="nulli" selected disable>نوع محل را انتخاب کنید</option>'+point_type_select+'</select></label>';
                         boxes +='<label><select name="visited_city"><option value="nulli" selected disable>شهر را انتخاب کنید</option>'+city_select+'</select></label>';
                         boxes +='<label><input  name="visited_address" type="text" placeholder="آدرس دقیق"></label>';
-                        boxes +='<label><input  name="visited_pointzone" type="number" min="0" max="15" placeholder="درجه - 0 تا 15"></label>';
+                        boxes +='<label><input id="not_imp" name="visited_pointzone" type="number" min="0" max="15" placeholder="درجه - 0 تا 15"></label>';
                         boxes +='<label><input  name="visited_mobile" type="number" placeholder="تلفن همرا"></label>';
-                        boxes +='<label><input  name="visited_email" type="text" placeholder="پست الکترونیک"></label>';
-                        boxes +='<label><input  name="visited_desc" type="text" placeholder="توضیحات"></label>';
+                        boxes +='<label><input id="not_imp" name="visited_email" type="text" placeholder="پست الکترونیک"></label>';
+                        boxes +='<label><input id="not_imp" name="visited_desc" type="text" placeholder="توضیحات"></label>';
                         boxes +='<label><select name="visited_type_m"><option  value="nulli" selected disable>نوع مشتری</option><option value="0">بتن آماده</option><option value="1">مشتریان بالقوه</option><option value="2">مشتریان فعلی</option></select></label>';
                         boxes +='<label><button type="submit">ارسال و دخیره ی اطلاعات</button></label>';
                         
@@ -598,7 +598,6 @@ angular.module('geolocation')
                 localStorage.setItem('last_lat',0);
                 
             }
-            
             if(localStorage.getItem('record') == 2)
             {
                 $('.record').addClass("active").text("Resume recording");
@@ -677,6 +676,7 @@ angular.module('geolocation')
                 });
             }
             /*=========================================================================*/
+            
             $('.stop').click(function(){
                 if(localStorage.getItem('record') != 0 && localStorage.getItem('record') != null )
                 {
@@ -851,26 +851,29 @@ angular.module('geolocation')
                 var count_error = 0;
                 form.children('label').each(function(index,element){
                     
-                    vals = element.children[0].value ;
+                   vals = element.children[0].value ;
                     
-                   if(element.children[0].tagName.toLowerCase() == "input" || element.children[0].tagName.toLowerCase() == "textarea" )
-                   {   
-                       
-                       if(vals.trim() == ""  || vals.trim() === undefined || vals.trim() == null  )
-                       {
-                           element.className += ' empty';
-                           count_error++;
+                   if(element.children[0].getAttribute("id") != "not_imp")
+                   {
+                    
+                       if(element.children[0].tagName.toLowerCase() == "input" || element.children[0].tagName.toLowerCase() == "textarea" )
+                       {   
+
+                           if(vals.trim() == ""  || vals.trim() === undefined || vals.trim() == null  )
+                           {
+                               element.className += ' empty';
+                               count_error++;
+                           }
                        }
-                   }
-                    else if(element.children[0].tagName.toLowerCase() == "select")
-                    {
-                        if(vals.trim() == 'nulli' || vals.trim() == ""  || vals.trim() === undefined )
+                        else if(element.children[0].tagName.toLowerCase() == "select")
                         {
-                            element.className += ' empty';
-                            count_error++;
+                            if(vals.trim() == 'nulli' || vals.trim() == ""  || vals.trim() === undefined )
+                            {
+                                element.className += ' empty';
+                                count_error++;
+                            }
                         }
-                    }
-                    
+                   }
                 });
                if(count_error > 0)
                {
@@ -929,7 +932,7 @@ angular.module('geolocation')
                          
                          if(element.children[0].tagName.toLowerCase() == "input" || element.children[0].tagName.toLowerCase() == "textarea" )
                          {   
-
+                             
                              if(vals.trim() == ""  || vals.trim() === undefined || vals.trim() == null  )
                              {
                                  element.className += ' empty';
@@ -943,7 +946,7 @@ angular.module('geolocation')
                                  element.className += ' empty';
                                  count_error++;
                              }
-                                }
+                         }
                              
                      });
                      if(count_error > 0)

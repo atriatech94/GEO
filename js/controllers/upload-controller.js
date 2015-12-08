@@ -29,7 +29,7 @@ angular.module('geolocation')
                     /*========================================================================*/   
                     if(localStorage.getItem("revisit_form")!=null)
                     {
-                        $.post("http://www.simanfars.ir/marketer/api/re_visited_up" , {data_post : localStorage.getItem("revisit_form") } , function(data){
+                        $.post(base_url+"/api/re_visited_up" , {data_post : localStorage.getItem("revisit_form") } , function(data){
                             $('.re_visit span').text(0);
                             localStorage.removeItem("revisit_form");
                             document.getElementById("loading").style.display="none";
@@ -44,7 +44,7 @@ angular.module('geolocation')
                     /*========================================================================*/
                    if(localStorage.getItem("newvisit_form")!=null)
                    {
-                        $.post("http://www.simanfars.ir/marketer/api/get_visited_up" , {data_post : localStorage.getItem("newvisit_form") } , function(data){
+                        $.post(base_url+"/api/get_visited_up" , {data_post : localStorage.getItem("newvisit_form") } , function(data){
                             //localStorage.removeItem("newvisit_form");
                             $('.new_visit span').text(0);
                             document.getElementById("loading").style.display="none";
