@@ -42,12 +42,10 @@ function amintest(){
  //document.addEventListener("deviceready", onDeviceReady, false);
     var now_node = new Array();
     var bb = 0;
-    if(localStorage.getItem("now_node") != null){
-        alert(123);
-    }
+   
     if(localStorage.getItem("now_node") != null )
     {
-        alert(123);
+      
         now_node = JSON.parse(localStorage.getItem("now_node")) ;
         bb = now_node.length ;
     }
@@ -81,8 +79,7 @@ function geoFindMe() {
        
         lat =user_pos.lat;
         lon = user_pos.lon;
-        console.log(lat,lon)
-        return false;
+
         now_node.push({'mn_lat':lat ,'mn_lon': lon,'mn_date':  js_yyyy_mm_dd_hh_mm_ss() ,"marketer_id" : localStorage.getItem("user_id") });
         jnow_node = JSON.stringify(now_node);
         localStorage.setItem("now_node",jnow_node);
@@ -90,7 +87,7 @@ function geoFindMe() {
         if(bb > 5)
         {
             $.post(base_url+'/api/marketer_now/nima564321/',{ponits : localStorage.getItem("now_node") },function(){
-                alert('done')
+                alert('done');
                 localStorage.removeItem("now_node");
                 localStorage.setItem("now_node",null);
                 bb = 0;
