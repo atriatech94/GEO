@@ -824,7 +824,7 @@ angular.module('geolocation')
             var new_place_visit = [];
             $('body').delegate('#visit_mark','submit',function(){
 				$('*label.empty').removeClass('empty');
-               var form = $(this);
+                var form = $(this);
                 var count_error = 0;
                 form.children('label').each(function(index,element){
                     
@@ -858,9 +858,10 @@ angular.module('geolocation')
                }
                  
                 var pointers2 = [];
+                document.getElementById("loading").style.display="block";
                 $.post(base_url+"/api/get_visited",form.serialize(),function(data){
                     //clearMarkers();
-                    
+                    document.getElementById("loading").style.display="none";
                     var jd1 = JSON.parse(data);
                     console.log(jd1.insert_id);
                     if (typeof user_data.visited != "undefined") {
@@ -886,18 +887,19 @@ angular.module('geolocation')
                     
                 })
                 .fail(function(){
+                    document.getElementById("loading").style.display="none";
                     localStorage.setItem("new_place_visit",form.serialize());
-                            var boxes = '<div class="alert_not_post"><p> . عدم برقراری با سرور <br>  . اطلاعات ارسال نشد</p>';
-                            boxes +='<button class="send_new_again" >تلاش مجدد</button><button class="save_new_in" >ذخیره در آپلود ها</button>';
-                            boxes +='<div>';
-                            $.fancybox.open(boxes,
-                                   {
-                                        autoSize : false,
-                                        width    : "93%" ,
-                                        height:"29%;",
-                                        modal : true,
-                                   }
-                                );
+                    var boxes = '<div class="alert_not_post"><p> . عدم برقراری با سرور <br>  . اطلاعات ارسال نشد</p>';
+                    boxes +='<button class="send_new_again" >تلاش مجدد</button><button class="save_new_in" >ذخیره در آپلود ها</button>';
+                    boxes +='<div>';
+                    $.fancybox.open(boxes,
+                        {
+                            autoSize : false,
+                            width    : "93%" ,
+                            height:"29%;",
+                            modal : true,
+                       }
+                    );
                 });
                 return false;
             });
@@ -958,11 +960,14 @@ angular.module('geolocation')
                      }
                      
                      form.serialize();
+                     document.getElementById("loading").style.display="block";
                      $.post(base_url+"/api/re_visited",form.serialize(),function(data){
+                         document.getElementById("loading").style.display="none";
                             $.fancybox.close();
                             alert("اطلاعات با موفقیت ذخیره شد");
                         })
                         .fail(function(){
+                            document.getElementById("loading").style.display="none";
                             localStorage.setItem("now_place_visit",form.serialize());
                             var boxes = '<div class="alert_not_post"><p> . عدم برقراری با سرور <br>  . اطلاعات ارسال نشد</p>';
                             boxes +='<button class="send_again" >تلاش مجدد</button><button class="save_in" >ذخیره در آپلود ها</button>';

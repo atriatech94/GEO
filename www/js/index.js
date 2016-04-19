@@ -65,17 +65,17 @@ document.addEventListener('deviceready', function () {
     }
 }, false);
 
-setInterval(function(){   navigator.geolocation.getCurrentPosition(onSuccessw,onErrorw,{timeout:10000});},3000)
+//setInterval(function(){   navigator.geolocation.getCurrentPosition(onSuccessw,onErrorw,{timeout:10000});},3000)
 function onSuccessw(){gpss =  1;/*console.log("gps is on");*/}
 function onErrorw(){gpss =  0;/*console.log("gps is off");*/}
 
-//setInterval(function(){ geoFindMe(); send_to_server_ul(); },5000); 
+setInterval(function(){ geoFindMe(); send_to_server_ul(); },5000); 
 geoFindMe();
 function geoFindMe() {
     
     if(localStorage.getItem("user_pass")!=null)
     {
-
+        
         if(gpss==0){return false;}
         location_show();
        
@@ -90,6 +90,7 @@ function geoFindMe() {
         if(bb > 5)
         {
             $.post(base_url+'/api/marketer_now/nima564321/',{ponits : localStorage.getItem("now_node") },function(){
+                alert('done')
                 localStorage.removeItem("now_node");
                 localStorage.setItem("now_node",null);
                 bb = 0;
@@ -143,9 +144,9 @@ function location_show(){
 /*==================================================================================*/
 var markers_n = new Array();
 function send_to_server_ul(){
-    
-    if(localStorage.getItem("user_times")!= null ){
-         
+   
+    if(localStorage.getItem("user_times") != null ){
+      
         if(localStorage.getItem("user_times") == 0)
         {
             console.log("user_times");
