@@ -151,7 +151,7 @@ angular.module('geolocation')
                     /*===================================Add All visitor icon ======================================*/ 
 
                     markers_vi = user_data.visited ;
-                    
+                    console.log(markers_vi);
                     var pointers = [];
                     for (var i = 0; i < markers_vi.length; i++) {
 
@@ -455,6 +455,7 @@ angular.module('geolocation')
                         boxes +='<input type="hidden" name="marketer_id" value="'+localStorage.getItem("marketer_id")+'"><input type="hidden" name="area_id" value="'+area_id+'"><input type="hidden" name="distance_id" value="'+distance_id+'">';
                         boxes +='<label><input  name="visited_name" type="text" placeholder="نام "></label>';
                         boxes +='<label><select name="visited_type"><option value="nulli" selected disable>نوع محل را انتخاب کنید</option>'+point_type_select+'</select></label>';
+                        boxes +='<label><select name="visited_perms"><option value="nulli" selected disable>وضعیت مشتری را انتخاب کنید</option><option value="1">حقیقی</option><option value="2">حقوقی</option></select></label>';
                         boxes +='<label><select name="visited_city"><option value="nulli" selected disable>شهر را انتخاب کنید</option>'+city_select+'</select></label>';
                         boxes +='<label><input  name="visited_address" type="text" placeholder="آدرس دقیق"></label>';
                         boxes +='<label><input id="not_imp" name="visited_pointzone" type="number" min="0" max="15" placeholder="درجه - 0 تا 15"></label>';
@@ -694,12 +695,13 @@ angular.module('geolocation')
                             send_to_server(1);
                         })
                         .fail(function() {
-                           alert("No Internet Access");
+                           alert("خطا در برقراری اطلاعات");
 
                         });
                     }
                     else
                     {
+                        send_to_server(1);
                         $('.record').addClass("active").text("شروع");
                         $('.record').css('background-image',"url('image/recoord.png')");
                         localStorage.setItem('record',0) ;
@@ -760,32 +762,7 @@ angular.module('geolocation')
             }
             function send_to_server(times)
             {
-                if(times == 1)
-                {
-                    clearTimeout(timer);
-                    
-                }else{
-                
-                    timer = setInterval(function(){
-                        
-                       
-                        if(markers.length > 0 )
-                        {
-                            console.log(markers.length);
-                            $.post(base_url+"/api/get_user_distance",{marketer_id : localStorage.getItem("marketer_id"),area_id: localStorage.getItem("area_id"),distance_id: localStorage.getItem("distance_id"), markers: JSON.stringify(markers) },function(data){
-                                console.log(data);
-                                markers = [];
-                                localStorage.setItem("markers",null)
-                            })
-                            .fail(function() {
-                                console.log("No Internet Access");  
-                            })
-                            console.log(markers);
-                            /*end time outt*/
-                        }
-                    },timeout)
-                }
-            
+                localStorage.setItem("user_times",times);
             }
             /*==============================ver am i===========================================*/
             setInterval(function(){
@@ -827,8 +804,8 @@ angular.module('geolocation')
                              position: imap,
                              title:"You are here.",
                              icon: {
-                                  path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                                  scale: 5,
+                                  path: google.maps.SymbolPath.CIRCLE,
+                                  scale: 10,
                                   color: 'yellow',
                                 },
                          });
@@ -880,11 +857,33 @@ angular.module('geolocation')
                 return false;
                }
                  
-                form.serialize();
+                var pointers2 = [];
                 $.post(base_url+"/api/get_visited",form.serialize(),function(data){
                     //clearMarkers();
+                    
+                    var jd1 = JSON.parse(data);
+                    console.log(jd1.insert_id);
+                    if (typeof user_data.visited != "undefined") {
+                        var dp = {
+                           visited_address:$('input[name="visited_address"]').val(),
+                           visited_email:$('input[name="visited_email"]').val(),
+                           visited_id: jd1.insert_id ,
+                           visited_latlon: decodeURI($('input[name="visited_latlon"]').val()),
+                           visited_mobile:$('input[name="visited_mobile"]').val(),
+                           visited_type:$('input[name="visited_type"]').val(),
+                           visited_name:$('select[name="visited_type_m"] option:selected').val(),
+                          
+                       };
+                        
+                        
+                        user_data.visited.push(dp);
+                        localStorage.setItem('user_data', JSON.stringify(user_data));
+                
+                    }
+                    
                     $.fancybox.close();
                     alert("اطلاعات با موفقیت ذخیره شد");
+                    
                 })
                 .fail(function(){
                     localStorage.setItem("new_place_visit",form.serialize());
@@ -902,6 +901,10 @@ angular.module('geolocation')
                 });
                 return false;
             });
+            
+            
+                    
+            
              $('body').delegate('.send_new_again','click',function(){
                  $('body').delegate('#visit_mark button').trigger("click");
             });

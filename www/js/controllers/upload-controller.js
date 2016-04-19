@@ -21,11 +21,12 @@ angular.module('geolocation')
                 /*==================================================================*/
                 /*==================================================================*/
                 $("body").delegate(".uplaod_list_btn","click",function(){
+                    
                     document.getElementById("loading").style.display="block";
                     
                     var re_visit_form =  JSON.parse( localStorage.getItem("revisit_form") );
                     var new_visit_form =  JSON.parse( localStorage.getItem("newvisit_form") );
-                    
+                   
                     /*========================================================================*/   
                     if(localStorage.getItem("revisit_form")!=null)
                     {
@@ -33,6 +34,7 @@ angular.module('geolocation')
                             $('.re_visit span').text(0);
                             localStorage.removeItem("revisit_form");
                             document.getElementById("loading").style.display="none";
+                            
                             alert("اطلاعات با موفقیت ذخیره شد");
                         }).
                         fail(function(){
@@ -56,7 +58,11 @@ angular.module('geolocation')
                         });
                     
                    }
-                    document.getElementById("loading").style.display="none";
+                    if(localStorage.getItem("newvisit_form")==null && localStorage.getItem("revisit_form")==null )
+                    {
+                         alert("اطلاعاتی برای ذخیره موجود نمی باشد");
+                        document.getElementById("loading").style.display="none";
+                    }
                     /*========================================================================*/
             });
             /*========================================================================*/
