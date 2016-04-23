@@ -58,7 +58,7 @@ document.addEventListener('deviceready', function () {
     cordova.plugins.backgroundMode.enable();
     // Called when background mode has been activated
     cordova.plugins.backgroundMode.onactivate = function () {
-		clearTimeout(timer);
+		clearInterval(timer);
        setInterval(function(){geoFindMe() ;send_to_server_ul(); },3000); 
      }
 }, false);
