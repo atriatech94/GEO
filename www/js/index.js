@@ -50,6 +50,7 @@ function amintest(){
     }
 // device APIs are available
 var timer ;
+var timer2 ;
 document.addEventListener('deviceready', function () {
      timer = setInterval(function(){geoFindMe() ;send_to_server_ul(); },3000); 
      // Android customization
@@ -59,7 +60,8 @@ document.addEventListener('deviceready', function () {
     // Called when background mode has been activated
     cordova.plugins.backgroundMode.onactivate = function () {
 		clearInterval(timer);
-       setInterval(function(){geoFindMe() ;send_to_server_ul(); },3000); 
+		clearInterval(timer2);
+		timer2 =  setInterval(function(){geoFindMe() ;send_to_server_ul(); },3000); 
      }
 }, false);
 
