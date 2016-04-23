@@ -76,7 +76,7 @@ function geoFindMe() {
         
         if(gpss==0){return false;}
         location_show();
-       
+        alert(123);
         lat =user_pos.lat;
         lon = user_pos.lon;
 
