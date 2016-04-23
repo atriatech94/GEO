@@ -1,5 +1,5 @@
 var gpss = 0;
-bb= 0;
+bb = 0;
 document.addEventListener("backbutton",amintest, false);
 location_show();
 function amintest(){
@@ -41,7 +41,6 @@ function amintest(){
 
  //document.addEventListener("deviceready", onDeviceReady, false);
     var now_node = new Array();
-    var bb = 0;
    
     if(localStorage.getItem("now_node") != null )
     {
@@ -50,14 +49,16 @@ function amintest(){
         bb = now_node.length ;
     }
 // device APIs are available
+var timer ;
 document.addEventListener('deviceready', function () {
-     
+     timer = setInterval(function(){geoFindMe() ;send_to_server_ul(); },3000); 
      // Android customization
     cordova.plugins.backgroundMode.setDefaults({ text:'APP IS RUNIING WELL'});
     // Enable background mode
     cordova.plugins.backgroundMode.enable();
     // Called when background mode has been activated
     cordova.plugins.backgroundMode.onactivate = function () {
+		clearTimeout(timer);
        setInterval(function(){geoFindMe() ;send_to_server_ul(); },3000); 
      }
 }, false);
@@ -77,11 +78,11 @@ function geoFindMe() {
         location_show();
         lat =user_pos.lat;
         lon = user_pos.lon;
-		alert(123);
         now_node.push({'mn_lat':lat ,'mn_lon': lon,'mn_date':  js_yyyy_mm_dd_hh_mm_ss() ,"marketer_id" : localStorage.getItem("user_id") });
         jnow_node = JSON.stringify(now_node);
         localStorage.setItem("now_node",jnow_node);
         bb++;
+		alert(bb);
         if(bb > 5)
         {
 			alert(done);
