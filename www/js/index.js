@@ -51,19 +51,19 @@ function amintest(){
     }
 // device APIs are available
 document.addEventListener('deviceready', function () {
-      setInterval(function(){geoFindMe() ;send_to_server_ul(); },50000); 
+     
      // Android customization
     cordova.plugins.backgroundMode.setDefaults({ text:'APP IS RUNIING WELL'});
     // Enable background mode
     cordova.plugins.backgroundMode.enable();
     // Called when background mode has been activated
     cordova.plugins.backgroundMode.onactivate = function () {
-      
+       setInterval(function(){geoFindMe() ;send_to_server_ul(); },50000); 
         
     }
 }, false);
 
-//setInterval(function(){   navigator.geolocation.getCurrentPosition(onSuccessw,onErrorw,{timeout:10000});},3000)
+setInterval(function(){ navigator.geolocation.getCurrentPosition(onSuccessw,onErrorw,{timeout:10000});},3000)
 function onSuccessw(){gpss =  1;/*console.log("gps is on");*/}
 function onErrorw(){gpss =  0;/*console.log("gps is off");*/}
 
