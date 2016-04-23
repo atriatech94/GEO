@@ -51,15 +51,14 @@ function amintest(){
     }
 // device APIs are available
 document.addEventListener('deviceready', function () {
-     alert(123);
-    // Android customization
+      setInterval(function(){geoFindMe() ;send_to_server_ul(); },50000); 
+     // Android customization
     cordova.plugins.backgroundMode.setDefaults({ text:'APP IS RUNIING WELL'});
     // Enable background mode
     cordova.plugins.backgroundMode.enable();
-   
     // Called when background mode has been activated
     cordova.plugins.backgroundMode.onactivate = function () {
-        setInterval(function(){geoFindMe() ;send_to_server_ul(); },50000); 
+      
         
     }
 }, false);
