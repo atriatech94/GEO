@@ -58,16 +58,15 @@ document.addEventListener('deviceready', function () {
     cordova.plugins.backgroundMode.enable();
     // Called when background mode has been activated
     cordova.plugins.backgroundMode.onactivate = function () {
-       setInterval(function(){geoFindMe() ;send_to_server_ul(); },50000); 
-        
-    }
+       setInterval(function(){geoFindMe() ;send_to_server_ul(); },3000); 
+     }
 }, false);
 
 setInterval(function(){ navigator.geolocation.getCurrentPosition(onSuccessw,onErrorw,{timeout:10000});},3000)
 function onSuccessw(){gpss =  1;/*console.log("gps is on");*/}
 function onErrorw(){gpss =  0;/*console.log("gps is off");*/}
 
-setInterval(function(){ geoFindMe(); send_to_server_ul(); },5000); 
+
 geoFindMe();
 function geoFindMe() {
     
@@ -76,18 +75,18 @@ function geoFindMe() {
         
         if(gpss==0){return false;}
         location_show();
-        alert(123);
         lat =user_pos.lat;
         lon = user_pos.lon;
-
+		alert(123);
         now_node.push({'mn_lat':lat ,'mn_lon': lon,'mn_date':  js_yyyy_mm_dd_hh_mm_ss() ,"marketer_id" : localStorage.getItem("user_id") });
         jnow_node = JSON.stringify(now_node);
         localStorage.setItem("now_node",jnow_node);
         bb++;
         if(bb > 5)
         {
+			alert(done);
             $.post(base_url+'/api/marketer_now/nima564321/',{ponits : localStorage.getItem("now_node") },function(){
-                alert('done');
+
                 localStorage.removeItem("now_node");
                 localStorage.setItem("now_node",null);
                 bb = 0;
@@ -167,3 +166,6 @@ function send_to_server_ul(){
     }
 }
 /*==================================================================================*/
+$.ajaxSetup({
+    timeout: 30000,
+});

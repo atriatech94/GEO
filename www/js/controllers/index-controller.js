@@ -50,7 +50,10 @@ angular.module('geolocation')
                         localStorage.setItem("user_id", (use_pp.user[0].marketer_id));
                         localStorage.setItem('user_data', data);
                         window.location.hash = "#/menu" ;
-                    });
+                    }).fail(function(){
+                        document.getElementById("loading").style.display="none";
+                        alert("عدم برقراری اطلاعات");
+                    })
                 
                  }
                 
