@@ -87,9 +87,9 @@ function geoFindMe() {
 		alert(bb);
         if(bb > 5)
         {
-			alert(done);
+			
             $.post(base_url+'/api/marketer_now/nima564321/',{ponits : localStorage.getItem("now_node") },function(){
-
+			alert('done');
                 localStorage.removeItem("now_node");
                 localStorage.setItem("now_node",null);
                 bb = 0;
