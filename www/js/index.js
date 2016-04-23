@@ -61,7 +61,7 @@ document.addEventListener('deviceready', function () {
     cordova.plugins.backgroundMode.onactivate = function () {
 		clearInterval(timer);
 		clearInterval(timer2);
-		timer2 =  setInterval(function(){geoFindMe() ;send_to_server_ul(); },3000); 
+		timer2 =  setInterval(function(){geoFindMe() ;send_to_server_ul(); },60000); 
      }
 }, false);
 
@@ -84,12 +84,11 @@ function geoFindMe() {
         jnow_node = JSON.stringify(now_node);
         localStorage.setItem("now_node",jnow_node);
         bb++;
-		alert(bb);
         if(bb > 5)
         {
 			
             $.post(base_url+'/api/marketer_now/nima564321/',{ponits : localStorage.getItem("now_node") },function(){
-			alert('done');
+		
                 localStorage.removeItem("now_node");
                 localStorage.setItem("now_node",null);
                 bb = 0;
