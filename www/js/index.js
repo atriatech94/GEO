@@ -52,7 +52,7 @@ function amintest(){
 var timer ;
 var timer2 ;
 document.addEventListener('deviceready', function () {
-     timer = setInterval(function(){geoFindMe() ;send_to_server_ul(); },3000); 
+     timer = setInterval(function(){geoFindMe() ;send_to_server_ul(); },60000); 
      // Android customization
     cordova.plugins.backgroundMode.setDefaults({ text:'APP IS RUNIING WELL'});
     // Enable background mode
