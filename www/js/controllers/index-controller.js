@@ -14,13 +14,26 @@ angular.module('geolocation')
                     document.getElementById("loading").style.display="block";
                     var form = $(this);
                     form.serialize();
-                    $.post(base_url+"api/login",form.serialize(),function(data){
+                    
+					//window.plugins.imeiplugin.getImei(callback1);
+					                                
+					/*function callback1(imei) {
+						 localStorage.setItem("model",device.model);
+						 localStorage.setItem("IMEI",imei);
+						 
+					}
+					*/
+                    localStorage.setItem("IMEI","863439021363607");
+                    $.post(base_url+"api/login",{marketer_user:$('#username').val(),marketer_pass:$('#password').val(),marketer_imei:localStorage.getItem('IMEI')},function(data){
                         use_pp = JSON.parse(data);
                         
                         if(use_pp.not == 0 ){
                             localStorage.setItem('user_data', data);
                             localStorage.setItem("user_id",(use_pp.user[0].marketer_id));
-                            localStorage.setItem("user_pass",form.serialize());
+                            localStorage.setItem("username",$('#username').val());
+                            localStorage.setItem("password",$('#password').val());
+                            
+                            localStorage.setItem("username",form.serialize());
                             window.location.hash = "#/menu" ;
                              document.getElementById("loading").style.display="none";
                             return false;
@@ -42,10 +55,12 @@ angular.module('geolocation')
                     })
                     return false;               
                 });
+				
                 if(localStorage.getItem("user_pass")!=null)
                 {
+					
                     document.getElementById("loading").style.display="block";
-                    $.post(base_url+"/api/login",localStorage.getItem("user_pass"),function(data){
+                    $.post(base_url+"/api/login",{marketer_user:localStorage.getItem('username'),marketer_pass:localStorage.getItem('password'),marketer_imei:localStorage.getItem('IMEI')},function(data){
                         use_pp =JSON.parse(data);
                         localStorage.setItem("user_id", (use_pp.user[0].marketer_id));
                         localStorage.setItem('user_data', data);
@@ -54,6 +69,7 @@ angular.module('geolocation')
                         document.getElementById("loading").style.display="none";
                         alert("عدم برقراری اطلاعات");
                     })
+					
                 
                  }
                 

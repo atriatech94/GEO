@@ -11,8 +11,8 @@ angular.module('geolocation')
 				/*====================================================*/
                 $('.upade_data').on("click",function(){
                     document.getElementById("loading").style.display="block";
-                    var user_pass =  localStorage.getItem("user_pass");
-                    $.post(base_url+"/api/login",user_pass,function(data){
+                    
+                    $.post(base_url+"/api/login",{marketer_user:localStorage.getItem('username'),marketer_pass:localStorage.getItem('password'),marketer_imei:localStorage.getItem('IMEI')},function(data){
                         localStorage.setItem('user_data', data);
                         document.getElementById("loading").style.display="none";
                         alert("بروز رسانی با موفقیت انجام شد");

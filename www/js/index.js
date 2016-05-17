@@ -1,5 +1,6 @@
 var gpss = 0;
 var bb = 0;
+
 document.addEventListener("backbutton",amintest, false);
 location_show();
 function amintest(){
