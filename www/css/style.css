@@ -256,7 +256,7 @@ position: absolute;
 /*--=============--  map_canvas --===================--*/
 #map_canvas , #map_canvas2{
     width: 100%;
-    height: 87%;
+    height: 100%;
     position: absolute;
     top:0px;
     right: 0px;
@@ -281,6 +281,7 @@ position: absolute;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     color:#fff;
+    display: none;
 }
 .footer button{
     width: 25%;
@@ -319,6 +320,31 @@ position: absolute;
 .footer .imap{
     background-size: 28px;
 }
+.where_me{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background:url(../image/mmm.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: .8;
+}
+.show_eye{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: 60px;
+    left: 20px;
+    background:url(../image/eclose.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: .8;
+}
+
 .active{
     background-color: #394263;
 }

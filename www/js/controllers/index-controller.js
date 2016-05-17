@@ -33,9 +33,9 @@ angular.module('geolocation')
                             localStorage.setItem("username",$('#username').val());
                             localStorage.setItem("password",$('#password').val());
                             
-                            localStorage.setItem("username",form.serialize());
+                            
                             window.location.hash = "#/menu" ;
-                             document.getElementById("loading").style.display="none";
+                            document.getElementById("loading").style.display="none";
                             return false;
                         }
                         else{

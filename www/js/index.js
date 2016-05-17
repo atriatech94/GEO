@@ -1,6 +1,9 @@
 var gpss = 0;
 var bb = 0;
 
+
+
+
 document.addEventListener("backbutton",amintest, false);
 location_show();
 function amintest(){
@@ -53,17 +56,13 @@ function amintest(){
 var timer ;
 var timer2 ;
 document.addEventListener('deviceready', function () {
-     timer = setInterval(function(){geoFindMe() ;send_to_server_ul(); },60000); 
+    
      // Android customization
     cordova.plugins.backgroundMode.setDefaults({ text:'APP IS RUNIING WELL'});
     // Enable background mode
     cordova.plugins.backgroundMode.enable();
     // Called when background mode has been activated
-    cordova.plugins.backgroundMode.onactivate = function () {
-		clearInterval(timer);
-		clearInterval(timer2);
-		timer2 =  setInterval(function(){geoFindMe() ;send_to_server_ul(); },60000); 
-     }
+   
 }, false);
 
 setInterval(function(){ navigator.geolocation.getCurrentPosition(onSuccessw,onErrorw,{timeout:10000});},3000)
@@ -71,7 +70,7 @@ function onSuccessw(){gpss =  1;/*console.log("gps is on");*/}
 function onErrorw(){gpss =  0;/*console.log("gps is off");*/}
 
 
-geoFindMe();
+//geoFindMe();
 function geoFindMe() {
     
     if(localStorage.getItem("user_pass")!=null)

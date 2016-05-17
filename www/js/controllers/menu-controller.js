@@ -28,8 +28,16 @@ angular.module('geolocation')
                 $('#exit').click(function(){
                     var r = confirm("آیا برای خروج اطمینان دارید ؟");
                     if (r == true) {
-                        localStorage.clear();
-                        navigator.app.exitApp();  
+                        $.post(base_url+"/api/logout",{marketer_user:localStorage.getItem('username'),marketer_pass:localStorage.getItem('password'),marketer_imei:localStorage.getItem('IMEI')},function(data){
+                            localStorage.clear();
+                            navigator.app.exitApp(); 
+                       
+                    }).fail(function(){
+                        document.getElementById("loading").style.display="none";
+                        alert("خطا در اتصال به سرور ، مجدد تلاش کنید");
+                    })
+                        
+                         
                    }
                     
                     return false;

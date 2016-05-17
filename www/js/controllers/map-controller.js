@@ -251,8 +251,7 @@ angular.module('geolocation')
                                  pointers[i].setVisible(false);
                              }
                             
-                            $(this).css("background-image","url('image/show.png')");
-                            $(this).text("نمایش نقاط");
+                            $(this).css("background-image","url('image/eopen.svg')");
                             show_hide_ponits = 0;
                                                         
                         }else{
@@ -260,8 +259,7 @@ angular.module('geolocation')
                             for(var i = 0; i < pointers.length; i++) {
                                  pointers[i].setVisible(true);
                             }                            
-                            $(this).text("پنهان کردن");
-                            $(this).css("background-image","url('image/hide.png')");
+                            $(this).css("background-image","url('image/eclose.svg')");
                             show_hide_ponits = 1;
                             
                             

@@ -25,6 +25,7 @@
   <gap:plugin name="org.apache.cordova.console"/>
   <gap:plugin name="org.apache.cordova.contacts"/>
   <gap:plugin name="org.apache.cordova.device"/>
+  <plugin name="com.joandilee.imeiplugin" spec="0.1" source="pgb" />
   <gap:plugin name="org.apache.cordova.device-motion"/>
   <gap:plugin name="org.apache.cordova.device-orientation"/>
   <gap:plugin name="org.apache.cordova.dialogs"/>
