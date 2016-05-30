@@ -763,18 +763,24 @@ angular.module('geolocation')
                 localStorage.setItem("user_times",times);
             }
             /*==============================ver am i===========================================*/
-            setInterval(function(){
-                navigator.geolocation.getCurrentPosition(onSuccess,onError,{timeout:10000});
-            },1000)
-   
-            function onSuccess()
+            setInterval(function(){ navigator.geolocation.getCurrentPosition(onSuccessw,onErrorw,{timeout:10000}); },500);
+                            
+                            
+            function onSuccessw(){gps =  1;navigator.geolocation.getCurrentPosition(GetLocation);/*console.log("gps is on");*/}
+            function onErrorw(){gps =  0;/*console.log("gps is off");*/}
+            
+            var user_pos = new Object();
+                
+                
+            // navigator.geolocation.getCurrentPosition(GetLocation);
+                
+            function GetLocation(location) 
             {
-                gps =  1;
+                console.log(location.coords.latitude,location.coords.longitude);
+                user_pos.lat = location.coords.latitude;
+                user_pos.lon = location.coords.longitude;
             }
-            function onError()
-            {
-                gps =  0;
-            }
+            
             /*==============================ver am i===========================================*/
             setInterval(function(){user_location(0)},3000)
             $('.imap').click(function(){
@@ -784,14 +790,11 @@ angular.module('geolocation')
             function user_location(pant_too)
             {
                 console.log("Change work");
-                if(gps==0)
+                if(gps==0) { alert("عدم برقراری ارتباط با ماهواره GPS "); }
+                else              
                 {
-                   // alert("gps غیر فعال می باشد . لطفا از اتصال gps خود مطمعا شوید ");
-                    return false;
-                }
-                navigator.geolocation.getCurrentPosition(GetLocation);
-                function GetLocation(location) {
-                    imap = new google.maps.LatLng(location.coords.latitude,location.coords.longitude)
+                
+                    imap = new google.maps.LatLng(user_pos.lat,user_pos.lon)
                     
                     if(mapMarker){
                         mapMarker.setPosition(imap);
@@ -811,8 +814,9 @@ angular.module('geolocation')
                     }
                     
                    if(pant_too == 1){map.panTo(imap);}
+                }
                     
-                    }
+                    
             }
             /*======================================add place===================================*/
             $("body").delegate('label.empty input , label.empty select ','change',function(){
