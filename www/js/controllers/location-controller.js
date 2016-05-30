@@ -41,36 +41,19 @@ angular.module('geolocation')
                    
               /*==============================================================================================*/
               
-            
-                $('.map_views').on("click",function(){   
-                    navigator.geolocation.getCurrentPosition(onSuccess, onError);
-                   
-                    if(gps==1){
-                         window.location.href = $(this).attr('href'); ; 
-                        return false;
-                    }
-                    else{
-                        alert("ابتدا GPS دستگاه خود را فعال کنید . ");
-                        return false;
-                    }
+                  
+                $('.map_views').on("click",function(){  
+                    
+                     window.location.href = $(this).attr('href'); ; 
+                    
                    
                 });
             
             /*==============================================================================================*/
-                   setInterval(function(){
-                       
-                       navigator.geolocation.getCurrentPosition(onSuccess,onError,{timeout:10000});
                    
-                   },1000)
-   
-                   function onSuccess()
-                   {
-                       gps =  1;
-                   }
-                   function onError()
-                   {
-                       gps =  0;
-                   }
+                   
+                       
+                   
             /*==============================================================================================*/
             /*==============================================================================================*/
             });

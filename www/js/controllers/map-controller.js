@@ -16,6 +16,7 @@ var last_lon = 0;
 var MAXIMUM_AGE = 200; // miliseconds
 var TIMEOUT = 300000;
 var HIGHACCURACY = true;
+var gps ; 
 
 
 angular.module('geolocation')
@@ -765,7 +766,7 @@ angular.module('geolocation')
             /*==============================ver am i===========================================*/
             setInterval(function(){ navigator.geolocation.getCurrentPosition(onSuccessw,onErrorw,{timeout:10000}); },500);
                             
-                            
+                      
             function onSuccessw(){gps =  1;navigator.geolocation.getCurrentPosition(GetLocation);/*console.log("gps is on");*/}
             function onErrorw(){gps =  0;/*console.log("gps is off");*/}
             
@@ -797,18 +798,16 @@ angular.module('geolocation')
                     imap = new google.maps.LatLng(user_pos.lat,user_pos.lon)
                     
                     if(mapMarker){
+                        
                         mapMarker.setPosition(imap);
+                        mapMarker.setIcon('image/mi2.png')
                     }
                     else{
                         
                          mapMarker = new google.maps.Marker({
                              position: imap,
                              title:"You are here.",
-                             icon: {
-                                  path: google.maps.SymbolPath.CIRCLE,
-                                  scale: 10,
-                                  color: 'yellow',
-                                },
+                             icon: 'image/mi2.png',
                          });
                         mapMarker.setMap(map);
                     }
