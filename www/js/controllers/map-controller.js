@@ -7,7 +7,7 @@ var timeout = 6000;
 var watchID;
 var geo;    // for the geolocation object
 var  polyOptions , poly;    // for the google map object
-var mapMarker;  // the google map marker object
+var mapMarker,geocoder;  // the google map marker object
 var markers = [];
 var markers_visti = [];
 var last_lat = 0;
@@ -118,7 +118,8 @@ angular.module('geolocation')
                     /*====================================*/
                     /*====================================*/
                     
-                    //var directionsService = new google.maps.DirectionsService();
+                     var directionsService = new google.maps.DirectionsService();
+                    geocoder = new google.maps.Geocoder();
                     var mapProp = {
                         center:new google.maps.LatLng(29.6543875,52.5155067),
                         zoom:13,
@@ -139,11 +140,22 @@ angular.module('geolocation')
                         "stylers":[{"visibility":"off"}]},{"featureType":"transit.station.rail","elementType":"labels.icon","stylers":[{"visibility":"on"}]},
                         {"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#8be2fc"}]}],
                     };
-                   
+                  
                     
                     flightPathh = null;
                     map = new google.maps.Map(document.getElementById("map_canvas2"),mapProp);
-                   
+                    
+                    mapMarker = new google.maps.Marker({
+                        position: new google.maps.LatLng(29.6543875,52.5155067),
+                        map: map,
+                        visible:false,
+                        icon: {
+                            path: google.maps.SymbolPath.CIRCLE,
+                            scale: 10,
+                            color: 'yellow',
+                        },
+                       labelAnchor: new google.maps.Point(50, 0),
+                    });
                     google.maps.event.addListener(map, 'click', function() {
                         
                     });
@@ -764,57 +776,58 @@ angular.module('geolocation')
                 localStorage.setItem("user_times",times);
             }
             /*==============================ver am i===========================================*/
-            setInterval(function(){ navigator.geolocation.getCurrentPosition(onSuccessw,onErrorw,{timeout:10000}); },500);
-                            
-                      
-            function onSuccessw(){gps =  1;navigator.geolocation.getCurrentPosition(GetLocation);/*console.log("gps is on");*/}
-            function onErrorw(){gps =  0;/*console.log("gps is off");*/}
             
+            
+            /*==============================ver am i===========================================*/
+            
+            $('.imap').click(function(){
+                user_location(1);
+               
+            });
+            
+            setInterval(function(){ navigator.geolocation.getCurrentPosition(onSuccessw,onErrorw,{timeout:1000}); },500);
+                            
+                                
+            function onSuccessw(){gpss =  1;navigator.geolocation.getCurrentPosition(GetLocations);/*console.log("gps is on");*/}
+            function onErrorw(){gpss =  0;/*console.log("gps is off");*/}
+                
             var user_pos = new Object();
                 
                 
             // navigator.geolocation.getCurrentPosition(GetLocation);
                 
-            function GetLocation(location) 
+            function GetLocations(location) 
             {
                 console.log(location.coords.latitude,location.coords.longitude);
                 user_pos.lat = location.coords.latitude;
                 user_pos.lon = location.coords.longitude;
             }
+                
+                
             
-            /*==============================ver am i===========================================*/
-            setInterval(function(){user_location(0)},3000)
-            $('.imap').click(function(){
-                user_location(1);
-               
-            });
+            
             function user_location(pant_too)
             {
-                console.log("Change work");
-                if(gps==0) { alert("عدم برقراری ارتباط با ماهواره GPS "); }
-                else              
-                {
                 
-                    imap = new google.maps.LatLng(user_pos.lat,user_pos.lon)
+                if(gpss == 1){ 
+                   
+                    var imap = new google.maps.LatLng(user_pos.lat,user_pos.lon);
+                    geocoder.geocode({'location': imap}, function(results, status) {
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            
+                            mapMarker.setPosition(imap);
+                            mapMarker.setVisible(true);
+                            if(pant_too == 1){map.panTo(imap);}
+                            
+                        }else{
+                            alert('عدم برقراری اطلاعات با ماهواره gps , مجدد تلاش نمایید .'); 
+                        }
+                    });
                     
-                    if(mapMarker){
-                        
-                        mapMarker.setPosition(imap);
-                        mapMarker.setIcon('image/mi2.png')
-                    }
-                    else{
-                        
-                         mapMarker = new google.maps.Marker({
-                             position: imap,
-                             title:"You are here.",
-                             icon: 'image/mi2.png',
-                         });
-                        mapMarker.setMap(map);
-                    }
-                    
-                   if(pant_too == 1){map.panTo(imap);}
+                }else{
+                   alert('عدم برقراری اطلاعات با ماهواره gps , مجدد تلاش نمایید .'); 
                 }
-                    
+                                    
                     
             }
             /*======================================add place===================================*/

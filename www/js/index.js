@@ -65,9 +65,9 @@ document.addEventListener('deviceready', function () {
    
 }, false);
 
-setInterval(function(){ navigator.geolocation.getCurrentPosition(onSuccessw,onErrorw,{timeout:10000});},3000)
-function onSuccessw(){gpss =  1;/*console.log("gps is on");*/}
-function onErrorw(){gpss =  0;/*console.log("gps is off");*/}
+//setInterval(function(){ navigator.geolocation.getCurrentPosition(onSuccessw,onErrorw,{timeout:10000});},3000)
+//function onSuccessw(){gpss =  1;/*console.log("gps is on");*/}
+//function onErrorw(){gpss =  0;/*console.log("gps is off");*/}
 
 
 //geoFindMe();

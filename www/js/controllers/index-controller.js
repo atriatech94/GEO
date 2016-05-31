@@ -14,14 +14,15 @@ angular.module('geolocation')
                     document.getElementById("loading").style.display="block";
                     var form = $(this);
                     form.serialize();
-                    
-					window.plugins.imeiplugin.getImei(callback1);
+                    localStorage.setItem("IMEI",863439021363607);
+					//window.plugins.imeiplugin.getImei(callback1);
 					                                
-					function callback1(imei) {
-						 localStorage.setItem("model",device.model);
-						 localStorage.setItem("IMEI",imei);
+					//function callback1(imei) {
+						 //localStorage.setItem("model",device.model);
+						// localStorage.setItem("IMEI",imei);
+					//	localStorage.setItem("IMEI",863439021363607);
 						 
-					}
+					//}
 					
                     //localStorage.setItem("IMEI","863439021363607");
                     $.post(base_url+"api/login",{marketer_user:$('#username').val(),marketer_pass:$('#password').val(),marketer_imei:localStorage.getItem('IMEI')},function(data){
